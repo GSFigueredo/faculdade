@@ -6,7 +6,8 @@ int main()
 
     // criação de variáveis
     char nome[20];
-    int anoN;
+    int anoN = 0;
+    int anoAtual = 2023;
     char matricula[20];
 
     char ender[30];
@@ -66,12 +67,16 @@ int main()
 
     printf("\n");
 
+    // validação com usuário
+
     verificaDados[strcspn(verificaDados, "\n")] = '\0';
 
     if (strcmp(verificaDados, "Sim") == 0 || strcmp(verificaDados, "sim") == 0)
     {
+        int idade = anoAtual - anoN;
+
         printf("Nome: %s", nome);
-        printf("idade: %d", (2023 - anoN));
+        printf("idade: %d", idade);
 
         printf("\nMatrícula: %s", matricula);
         printf("Endereço: %s", ender);
