@@ -12,7 +12,7 @@ int main()
 
     char ender[30];
     char curso[25];
-    int periodo;
+    char periodo[10];
 
     int quanDis;
     float mensalidade;
@@ -38,9 +38,7 @@ int main()
     fgets(curso, sizeof(curso), stdin);
 
     printf("Está em qual período? ");
-    scanf("%d", &periodo);
-
-    getchar();
+    fgets(periodo, sizeof(periodo), stdin);
 
     printf("Você tem quantas disciplinas no semestre? ");
     scanf("%d", &quanDis);
@@ -75,6 +73,10 @@ int main()
     {
         int idade = anoAtual - anoN;
 
+        printf("==============Informações do usuário==============");
+
+        printf("\n");
+
         printf("Nome: %s", nome);
         printf("idade: %d", idade);
 
@@ -82,15 +84,18 @@ int main()
         printf("Endereço: %s", ender);
 
         printf("Curso: %s", curso);
-        printf("Período: %d", periodo);
+        printf("Período: %s", periodo);
 
-        printf("\nDisciplinas:");
+        printf("Disciplinas:");
         for (contador = 1; contador <= quanDis; contador++)
         {
             printf(" %s", disciplinas[contador]);
         }
         printf("Mensalidade: %.2f", mensalidade);
         printf("\n");
+
+        printf("==============Encerrando==============");
+
     }
     else
     {
