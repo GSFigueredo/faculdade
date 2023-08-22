@@ -11,11 +11,12 @@ int main()
 
     printf("Digite dois valores!");
 
+    printf("\n");
+
     for (cont = 0; cont < 2; cont++)
     {
         printf("Valor %d:", cont);
         scanf("%d", &valores[cont]);
-        printf("\n");
     }
 
     printf("O que você deseja fazer com esses valores?");
@@ -33,25 +34,25 @@ int main()
     case 1:
     {
         int soma = valores[0] + valores[1];
-        printf("%d", soma);
+        printf("%d + %d = %d", valores[0], valores[1], soma);
         break;
     }
     case 2:
     {
         int sub = valores[0] - valores[1];
-        printf("%d", sub);
+        printf("%d - %d = %d", valores[0], valores[1], sub);
         break;
     }
     case 3:
     {
         int mult = valores[0] * valores[1];
-        printf("%d", mult);
+        printf("%d x %d = %d", valores[0], valores[1], mult);
         break;
     }
     case 4:
     {
-        float div = (float)valores[0] / (float)valores[1];
-        printf("%f", div);
+        float div = valores[0] / valores[1];
+        printf("%d / %d = %.1f", valores[0], valores[1], div);
         break;
     }
 
@@ -59,8 +60,6 @@ int main()
         printf("Algo está errado!");
         break;
     }
-
-    system("clear");
 
     return 0;
 }
