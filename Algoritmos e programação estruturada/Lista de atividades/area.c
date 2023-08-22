@@ -3,9 +3,17 @@
 #include <math.h>
 
 int main(){ 
-    printf("Para uma sala em formato retangular, de comprimento 27m e largura 15m");
+
+    float compr;
+    float larg;
+
+    printf("Digite o valor do comprimento da sala:");
+    scanf("%f", &compr);
+
+    printf("Digite o valor da largura da sala:");
+    scanf("%f", &larg);
     
-    float area = 27*15;
+    float area = compr*larg;
 
     printf("Sua área é: %.3f", area);
 
