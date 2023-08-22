@@ -38,5 +38,5 @@ int main(){
 
     printf("Salário final do colaborador: %.2f", salarioFinal);
 
-
+    return 0;
 }
