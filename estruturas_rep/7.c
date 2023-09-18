@@ -46,8 +46,6 @@ int main()
         else if (strcmp(sexo, "f") == 0 || strcmp(sexo, "F") == 0)
         {
             sex = 2;
-        } else {
-            break;
         }
 
         switch (sex)
@@ -87,8 +85,6 @@ int main()
         else if (strcmp(olhos, "p") == 0 || strcmp(olhos, "P") == 0)
         {
             zoi = 4;
-        } else {
-            break;
         }
 
         switch (zoi)
@@ -136,8 +132,6 @@ int main()
         else if (strcmp(cabelo, "r") == 0 || strcmp(cabelo, "R") == 0)
         {
             cab = 4;
-        } else {
-            break;
         }
 
         switch (cab)
