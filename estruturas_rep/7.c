@@ -200,6 +200,11 @@ int main()
             }
         }
 
+        if ((idade >= 18 && idade <= 35) && (sex == 2 && zoi == 2 && cab == 2) ){
+            filtro++;
+            printf("Entrou no filtro");
+        }
+
         system("clear");
 
         printf("Gênero: %s", sexo);
@@ -212,11 +217,7 @@ int main()
         printf("\n");
         printf("Salário: %.2f", salario);
         printf("\n");
-
-        if (sex == 2 && (idade >= 18 && idade <= 35) && zoi == 2 && cab == 2){
-            filtro++;
-            printf("Entrou no filtro");
-        }
+        printf("Filtro: %d", filtro);
 
         printf("Quer registrar um novo colaborador? sim[1] / não[-1]");
         scanf("%d", &resp);
