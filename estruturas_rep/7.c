@@ -226,7 +226,7 @@ int main()
 
     } while (resp == 1);
 
-    pessoasFilt = ((filtro * quanP)/ 100);
+    pessoasFilt = ((filtro * 100)/ quanP);
 
 
         printf("Quantidade de pessoas(total): %d", quanP);

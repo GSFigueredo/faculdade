@@ -31,7 +31,12 @@ int main () {
             tipo = 3;
         }
 
-        
+    }
+
+    if(tipo == 1) {
+        printf("Triangulo com os três ângulos de 60 graus");
+    } else {
+        printf("Fora os triangulos equilateros, os angulos de um triangulo podem assumir quaisquer valores");
     }
 
     return 0;
