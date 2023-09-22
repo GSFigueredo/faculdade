@@ -11,6 +11,10 @@ int testarValor(int x, int y) {
         return 3;
     } else if(x > 0 && y < 0) {
         return 4;
+    } else if (x == 0 && y != 0){
+        return 5;
+    } else if (x != 0 && y == 0) {
+        return 6;
     } else {
         return 0;
     }
@@ -33,6 +37,12 @@ int main () {
         printf("Terceiro quadrante (%d , %d)", x, y);
     } else if (resultado == 4) {
         printf("Quarto quadrante (%d , %d)", x, y);
+    } else if(resultado == 5){
+        printf("Eixo X (%d , %d)", x, y);
+    } else if(resultado == 6) {
+        printf("Eixo Y (%d , %d)", x, y);
+    } else {
+        printf("O ponto está na origem");
     }
 
     return 0;
