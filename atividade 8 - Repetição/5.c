@@ -8,11 +8,11 @@ int main()
     char nome[20], genero;
     int teste = 1;
     int resp, tot = 0, totMartPes = -1;
-    int maior = 0, idade, voto = 0, sam = 0, alex = 0, dzs = 0, amandine = 0, marta = 0;
+    int maior, idade, voto = 0, sam = 0, alex = 0, dzs = 0, amandine = 0, marta = 0;
     int votoFeminino = 0;
     char maiorNome[30];
     int pessoasIdadeTot[300];
-    char martPes[300][20], pessoasNomeTot[300][20], pessoasSexoTot[300][5];
+    char martPes[300][20], pessoasNomeTot[300][20], pessoasSexoTot[300];
 
     do{
 
@@ -26,8 +26,6 @@ int main()
     scanf("%d", &idade);
     getchar();
     } while (idade < 13);
-
-    getchar();
 
     do {
 
@@ -62,15 +60,13 @@ int main()
     printf("\n");
     printf("[5] - Marta Viera - Brasil");
     printf("\n");
-    printf("Qual o seu voto? ");
-    scanf("%d", &voto);
 
-    getchar();
+    do {
+        printf("Qual o seu voto? ");
+        scanf("%d", &voto);
 
-    if(voto != 1 && voto != 2 && voto != 3 && voto != 4 && voto != 5) {
-        printf("Voto inválido");
-        return 0;
-    } else {
+        getchar();
+    } while(voto != 1 && voto != 2 && voto != 3 && voto != 4 && voto != 5);
 
         switch(voto) {
             case 1: sam++;
@@ -119,7 +115,6 @@ int main()
             break;
 
         }
-    }
 
     if(voto == 5 && idade >= 18) {
         totMartPes++;
@@ -128,7 +123,7 @@ int main()
 
     strcpy(pessoasNomeTot[tot], nome);
     pessoasIdadeTot[tot] = idade;
-    strcpy(pessoasSexoTot[tot], genero);
+    pessoasSexoTot[tot] = genero;
 
     printf("Registrar novo voto? sim[1] / não[2] ");
     scanf("%d", &resp);
@@ -162,12 +157,9 @@ int main()
     printf("------------------- PESSOAS QUE VOTARAM -------------------");
     printf("\n");
 
-    for(int c = 0; c <= tot; c++) {
-        printf("%s", pessoasNomeTot[c]);
-        printf(", ");
-        printf("%d anos", pessoasIdadeTot[c]);
-        printf(", ");
-        printf("gênero %s", pessoasSexoTot[c]);
+    for(int c = 1; c < (tot + 1); c++) {
+
+        printf("%s %d anos, gênero %c", pessoasNomeTot[c], pessoasIdadeTot[c], pessoasSexoTot[c]);
         printf("\n");
     }
 
