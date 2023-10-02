@@ -10,7 +10,9 @@ int main () {
     int maior = 0, menor = 10, maiorP = 0, menorP = 10;
     char elev, periodo, elevMais, elevMenos, periodoMais, periodoMenos;
 
-    for(int c = 0; c < 6; c++) {
+    for(int c = 0; c < 51; c++) {
+
+        system("clear");
 
         tot++;
 
@@ -114,6 +116,8 @@ int main () {
         elevMedioV = maior - menor;
         
     }
+
+    system("clear");
 
     printf("O período mais utilizado: %c e o elevador que pertence: %c", periodoMais, elevMais);
     printf("\n");
