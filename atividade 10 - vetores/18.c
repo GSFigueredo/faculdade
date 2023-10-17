@@ -20,7 +20,7 @@ int main () {
     printf("\n");
     
     for(int c = 0; c < 10; c++) {
-        if(x%vet[c] == 0) {
+        if(vet[c] == 0) {
             printf("%d\n", vet[c]);
         }
     }
