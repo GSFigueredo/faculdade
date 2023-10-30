@@ -28,7 +28,7 @@ int main() {
     }
 
     for(int l = 1; l < 3; l++) {
-        printf("\n");
+        
         for(int c = 1; c < 3; c++) {
             printf("%d", mat[l][c]);
         }
