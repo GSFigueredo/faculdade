@@ -2,24 +2,21 @@
 #include <math.h>
 #include <string.h>
 
-void retirarFilmes(int filmes) {
+void retirarFilmes(int filmes[500], int filmesQ) {
 
-    if(filmes%15 == 0) {
-        filmes = filmes/15;
-
-        printf("Você tem direito a pegar %d filmes de graça", filmes);
+    for(int c = 0; c < 500; c++) {
+        
     }
-
 }
 
 int main () {
 
-    int filmes;
+    int filmes[500], filmesQ;
 
     printf("Quantos filmes você deseja retirar?");
-    scanf("%d", &filmes);
+    scanf("%d", &filmesQ);
 
-    retirarFilmes(filmes);
+    retirarFilmes(filmes[500], filmesQ);
 
     return 0;
 }

@@ -9,8 +9,6 @@ void parcelarValor(float gastos);
 void pagamentoParcelas(float gastos);
 //protótipos das funções//
 
-
-
 void pagarValor(float gastos) {
 
     int esc;
@@ -96,7 +94,6 @@ int main() {
     scanf("%f", &gastos);
 
     pagarValor(gastos);
-
 
     return 0;
 }
