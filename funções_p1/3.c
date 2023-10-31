@@ -27,18 +27,46 @@ void trocarLinha(int mat[10][10]) {
     }
 }
 
-void trocaColuna(int mat[10][10]) {
+void trocarColuna(int mat[10][10]) {
     int aux[10][10];
     int aux2[10][10];
 
     for(int c = 0; c<10; c++) {
         aux[c][4] = mat[c][4];
-        aux2[c][10] = mat[c][10];
+        aux2[c][9] = mat[c][9];
     }
     
     for(int c = 0; c<10; c++) {
-        mat[c][4] = aux2[c][10];
-        mat[c][10] = aux[c][4];
+        mat[c][4] = aux2[c][9];
+        mat[c][9] = aux[c][4];
+    }
+
+    for(int l = 0; l < 10; l++) {
+
+        printf("\n");
+
+        for(int c = 0; c < 10; c++) {
+            printf("%d\t", mat[l][c]);
+        }
+    }
+}
+
+trocarDiagonal(int mat[10][10]) {
+
+}
+
+trocarLinhaColuna(int mat[10][10]) {
+    int aux[10][10];
+    int aux2[10][10];
+
+    for(int c = 0; c<10; c++) {
+        aux[5][c] = mat[5][c];
+        aux2[c][9] = mat[c][9];
+    }
+    
+    for(int c = 0; c<10; c++) {
+        mat[5][c] = aux2[c][9];
+        mat[c][9] = aux[5][c];
     }
 
     for(int l = 0; l < 10; l++) {
@@ -72,38 +100,14 @@ int main() {
         }
 
     }
-
+    
     printf("\n");
     printf("------------------------------------------------------------------------");
     printf("\n");
-    trocarLinha(mat);
-    printf("\n-----------------------------------------------------------------------------------");
-
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-
-    for(int l = 0; l < 10; l++) {
-
-        printf("\n");
-
-        for(int c = 0; c < 10; c++) {
-            printf("%d\t", mat[l][c]);
-        }
-
-    }
-
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-    printf("\n");
-
-    trocaColuna(mat);
-
+    
+    //trocarLinha(mat);
+    //trocarColuna(mat);
+    //trocarDiagonal(mat);
+    trocarLinhaColuna(mat);
     return 0;
 }
