@@ -28,7 +28,7 @@ float calcularSalario(int pecas, float acres){
 
 void mostrarFinal (float salario[200], int id) {
     for (int c = 0; c < id; c++) {
-        printf("Salario do funcionário %d é igual a: %.2f", c, salario[c]);
+        printf("Salario do funcionário %d é igual a: %.2f", c+1, salario[c]);
         printf("\n");
     }
 }
@@ -46,8 +46,6 @@ int main(){
     printf("Quantas peças foram produzidas? ");
     scanf("%d", &pecas[id]);
 
-    getchar();
-
     x[id] = validarQuantidade(pecas[id]);
 
     salario[id] = calcularSalario(pecas[id], x[id]);
@@ -56,6 +54,7 @@ int main(){
     scanf("%d", &resp);
 } while (resp == 1);
 
+    id++;
     mostrarFinal(salario, id);
 
     return 0;
