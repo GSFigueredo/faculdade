@@ -2,11 +2,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-
-int idDinamico(int x);
-void cadastrar();
-int verificarGenero(char x[30]);
-
 typedef struct
 {
     int id;
@@ -18,57 +13,56 @@ typedef struct
     int vacina;
 } users;
 
+int idDinamico(int x);
+void cadastrar(users usuario[], int id);
+int verificarGenero(char x[30]);
+
 int idDinamico(int x){
 
     int id = x + 1;
     return id;
 }
 
-void cadastrar(){
-    int id = 0;  
-    id = idDinamico(id);   
+void cadastrar(users usuario[], int id){
+    
     int testeG;
-
-for (int c = 0; c < 2; c++){
-
-    users usuario[c];
-    usuario[c].id = id;
+    usuario[id].id = id;
 
     printf("Nome completo: ");
-    fgets(usuario[c].nome, sizeof(usuario[c].nome), stdin);
+    fgets(usuario[id].nome, sizeof(usuario[id].nome), stdin);
 
-    printf("\nEmail: ");
-    fgets(usuario[c].email, sizeof(usuario[c].email), stdin);
-    getchar();
+    printf("Email: ");
+    fgets(usuario[id].email, sizeof(usuario[id].email), stdin);
 
     do{
 
-        printf("\nGênero: ");
-            fgets(usuario[c].sexo, sizeof(usuario[c].sexo), stdin);
+        printf("Gênero: ");
+        fgets(usuario[id].sexo, sizeof(usuario[id].sexo), stdin);
 
-            testeG = verificarGenero(usuario[c].sexo);
+        usuario[id].sexo[strcspn(usuario[id].sexo, "\n")] = '\0';
 
-            printf("teste %d", testeG);
+        testeG = verificarGenero(usuario[id].sexo);
 
-            if(testeG == 0) {
-                printf("Gênero fora do padrão, favor digitar novamente...");
-            }   
-        } while(testeG == 0);
+        if(testeG == 0) {
+            printf("Gênero fora do padrão, favor digitar novamente...");
+            printf("\n");
+        }   
+    } while(testeG != 1);
 
-    printf("\nEndereço: ");
-    fgets(usuario[c].endereco, sizeof(usuario[c].endereco), stdin);
+    printf("Endereço: ");
+    fgets(usuario[id].endereco, sizeof(usuario[id].endereco), stdin);
 
-    printf("\nAltura: ");
-    scanf("%lf", &usuario[c].altura);
+    printf("Altura: ");
+    scanf("%lf", &usuario[id].altura);
 
     getchar();
 
-    printf("\nVacinado? sim[1] / não[0]");
-    scanf("%d", &usuario[c].vacina);
+    printf("Vacinado? sim[1] / não[0] ");
+    scanf("%d", &usuario[id].vacina);
 
     getchar();
 }
-}
+
 
 int verificarGenero(char x[30]) {
 
@@ -81,12 +75,17 @@ int verificarGenero(char x[30]) {
 
 int main(){
 
-    for (int c = 0; c < 2; c++){
-        printf("Novo registro:");
+    int id = 0;
+    users usuario[1000];
+
+    for (int c = 0; c < 3; c++){
+          
+        id = idDinamico(id);  
+        system("clear");
+        printf("------------------------- Novo registro -------------------------");
         printf("\n");
 
-        cadastrar();
-
+        cadastrar(usuario, id);
     }
     return 0;
 }

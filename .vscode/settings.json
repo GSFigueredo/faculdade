@@ -1,7 +1,8 @@
 {
   "files.associations": {
     "stdlib.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "random": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
