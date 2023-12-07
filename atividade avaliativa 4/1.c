@@ -251,7 +251,7 @@ int main() {
         printf("\n3 - Listar placas que comecem com J e terminem com 0, 2, 4 ou 7 e seus proprietários");
         printf("\n4 - Listar modelo e a cor dos veículos cujas placas possuem como segunda letra uma vogal e cuja soma dos valores numéricos fornece um número par");
         printf("\n5 - Realizar troca de proprietário pelo número do chassi, para carros com placas que não possuam nenhum dígito igual a zero");
-        printf("\n6 - Listar todos os veículos");
+        printf("\n6 - Listar todos os veículos registrados");
         printf("\n0 - Sair");
         printf("\n");
 
