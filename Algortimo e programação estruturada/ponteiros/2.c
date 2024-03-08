@@ -17,6 +17,8 @@ int main () {
     } else {
         printf("Endereço de B é maior");
     }
+
+    printf("%d", *pA);
     
     return 0;
 }
