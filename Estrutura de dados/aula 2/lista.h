@@ -3,10 +3,14 @@
 
 typedef struct Aluno Aluno;
 
-struct Aluno criaLista(int numAlunos);
+struct Aluno *criaLista(int numAlunos);
+
 void listarAlunos(Aluno *lista);
+
 void adicionarAluno(Aluno **lista, Aluno aluno);
-Aluno *buscarAluno(Aluno *lista, int matricula);
+
+Aluno* buscarAluno(Aluno *lista, int matricula);
+
 void removerAluno(Aluno **lista, int matricula);
 
 #endif

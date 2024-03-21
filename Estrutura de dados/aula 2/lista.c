@@ -1,72 +1,67 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include "lista.h"
 
-// Variáveis
+int ultimaPosLivre = 0;
 
-    int cont = 0;
-
-// Fim variáveis
-
-
-struct Aluno{
-    char nome[50];
+struct Aluno
+{
     int idade;
-    char curso[50];
+    char nome[50];
     float nota;
-} aluno;
+};
 
-struct Aluno *criarLista(int numAlunos){
 
-    struct Aluno *alunos = (struct Aluno*)malloc(numAlunos * sizeof(aluno));
-
+struct Aluno *criaLista(int numAlunos){
+    //alocando dinamicamente
+    struct Aluno *alunos = (struct Aluno*) malloc(numAlunos*sizeof(Aluno));
     return alunos;
 }
 
-void adicionarAlunos(struct Aluno **lista, struct Aluno aluno) {
 
-    strcpy(lista[cont]->nome, aluno.nome);
-    lista[cont]->idade = aluno.idade;
-    lista[cont]->nota = aluno.nota;
 
-    cont++;
+void adicionarAluno(struct Aluno **lista, struct Aluno aluno)
+{
+    strcpy((*lista)[ultimaPosLivre].nome, aluno.nome);
+    (*lista)[ultimaPosLivre].idade = aluno.idade;
+    (*lista)[ultimaPosLivre].nota = aluno.nota;
 
+    ultimaPosLivre++;
 }
 
-void listarAlunos (Aluno *lista) {
-    for(int i = 0; i < cont; i++) {
-        printf("Aluno: %s", lista[i].nome);
-        printf("\nIdade: %d", lista[i].idade);
-        printf("\nCurso: %s", lista[i].curso);
-        printf("\nNota: %.2f", lista[i].nota);
+void listarAluno(struct Aluno *lista){
+    for(int i = 0; i<ultimaPosLivre;i++){
+        printf("Aluno: %d\n", i + 1);
+        printf("Nome: %s\n", lista[i].nome );
+        printf("Idade: %d\n", lista[i].idade);
+        printf("Float: %.2f\n", lista[i].nota);
+        printf("\n");
     }
 }
-
 int main(){
-
     struct Aluno *alunos;
+    alunos = criaLista(10);
 
-    alunos =  criarLista(10);
+    struct Aluno aluno1,aluno2,aluno3;
 
-    struct Aluno aluno1, aluno2;
+    strcpy(aluno1.nome, "joao");
+    aluno1.idade = 19;
+    aluno1.nota = 8.5;
 
-    strcpy(aluno1.nome, "Gabriel");
-    aluno1.idade = 18;
-    strcpy(aluno1.curso, "CCC");
-    aluno1.nota = 10;
+    strcpy(aluno2.nome, "carlos");
+    aluno2.idade = 18;
+    aluno2.nota = 7;
 
-    adicionarAlunos(&alunos, aluno1);
+    strcpy(aluno3.nome, "robsû");
+    aluno3.idade = 21;
+    aluno3.nota = 9;
+    
+    adicionarAluno(&alunos,aluno1);
+    adicionarAluno(&alunos,aluno2);
+    adicionarAluno(&alunos,aluno3);
 
-    strcpy(aluno2.nome, "Joao");
-    aluno2.idade = 19;
-    strcpy(aluno2.curso, "CCC");
-    aluno2.nota = 8;
-
-    adicionarAlunos(&alunos, aluno2);
-
-    listarAlunos(alunos);
-
+    //adicionarAluno(alunos,);
+    listarAluno(alunos);
     return 0;
 }
