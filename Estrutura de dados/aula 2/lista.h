@@ -9,8 +9,8 @@ void listarAlunos(Aluno *lista);
 
 void adicionarAluno(Aluno **lista, Aluno aluno);
 
-Aluno* buscarAluno(Aluno *lista, int matricula);
-
 void removerAluno(Aluno **lista, int matricula);
+
+void buscarAlunos(struct Aluno *lista, int id);
 
 #endif

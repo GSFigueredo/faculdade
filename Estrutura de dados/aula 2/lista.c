@@ -3,10 +3,11 @@
 #include <string.h>
 #include "lista.h"
 
-int ultimaPosLivre = 0;
+int ultimaPosLivre = 1;
 
 struct Aluno
 {
+    int id;
     int idade;
     char nome[50];
     float nota;
@@ -23,6 +24,7 @@ struct Aluno *criaLista(int numAlunos){
 
 void adicionarAluno(struct Aluno **lista, struct Aluno aluno)
 {
+    (*lista)[ultimaPosLivre].id = ultimaPosLivre;
     strcpy((*lista)[ultimaPosLivre].nome, aluno.nome);
     (*lista)[ultimaPosLivre].idade = aluno.idade;
     (*lista)[ultimaPosLivre].nota = aluno.nota;
@@ -32,18 +34,32 @@ void adicionarAluno(struct Aluno **lista, struct Aluno aluno)
 
 void listarAluno(struct Aluno *lista){
     for(int i = 0; i<ultimaPosLivre;i++){
-        printf("Aluno: %d\n", i + 1);
+        printf("Aluno: %d\n", lista[i].id);
         printf("Nome: %s\n", lista[i].nome );
         printf("Idade: %d\n", lista[i].idade);
         printf("Float: %.2f\n", lista[i].nota);
         printf("\n");
     }
 }
+
+void buscarAlunos(struct Aluno *lista, int id) {
+    for(int i = 1; i <= ultimaPosLivre; i++) {
+        if(lista[i].id == id) {
+            printf("Aluno: %d\n", i);
+            printf("Nome: %s\n", lista[i].nome );
+            printf("Idade: %d\n", lista[i].idade);
+            printf("Float: %.2f\n", lista[i].nota);
+            printf("\n");
+        }
+    }
+}
+
 int main(){
     struct Aluno *alunos;
     alunos = criaLista(10);
+    int id;
 
-    struct Aluno aluno1,aluno2,aluno3;
+    struct Aluno aluno1, aluno2, aluno3;
 
     strcpy(aluno1.nome, "joao");
     aluno1.idade = 19;
@@ -63,5 +79,13 @@ int main(){
 
     //adicionarAluno(alunos,);
     listarAluno(alunos);
+
+    //buscar alunos
+
+    printf("Digite o id do aluno: ");
+    scanf("%d", &id);
+
+    buscarAlunos(alunos, id);
+
     return 0;
 }
