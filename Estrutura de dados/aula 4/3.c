@@ -3,7 +3,7 @@
 /// quick sort
 
 int main() { 
-    int vetor [] = {24, 10, 2 , 3, 50};
+    int vetor [] = {24, 10, 2 , 50, 45};
     int temp;
     int maior = -1; 
     int posMaior = -1;
