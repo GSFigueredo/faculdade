@@ -24,6 +24,9 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
         fscanf(arquivo, " %[^\n]", listaArtistas[*posicaoArtista].tipoMusc);
         fscanf(arquivo, " %[^\n]", listaArtistas[*posicaoArtista].naturalidade);
 
+        int c;
+        while ((c = fgetc(arquivo)) != EOF && c != '\n');
+
         listaArtistas[*posicaoArtista].quantidadeAlbuns = 0;
         while(1) {
             fscanf(arquivo, " %[^\n]", listaArtistas[*posicaoArtista].listaAlbuns[listaArtistas[*posicaoArtista].quantidadeAlbuns]);
@@ -32,8 +35,6 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
                 break;
             }
         }
-
-
 
         (*posicaoArtista)++;
     }
@@ -60,10 +61,8 @@ int main () {
     printf("[5] Buscar álbum\n");
     printf("[6] Encerrar programa\n");
     printf("==================== **** ====================");
-    //printf("\nO que deseja fazer? ");
-    //scanf("%d", &esc);
-
-    printf("%s", listaArtistas[0].nome);
+    printf("\nO que deseja fazer? ");
+    scanf("%d", &esc);
 
     switch(esc) {
         case 1:
