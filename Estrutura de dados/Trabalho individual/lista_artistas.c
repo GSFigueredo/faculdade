@@ -42,8 +42,8 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
     fclose(arquivo);
 }
 
-void inserirArtista (int posicaoArtista) {
-    
+void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
+        
 }
 
 int main () {
@@ -66,7 +66,7 @@ int main () {
 
     switch(esc) {
         case 1:
-            inserirArtista(posicaoArtista);
+            inserirArtista(listaArtistas, &posicaoArtista);
             break;
 
         case 2:
