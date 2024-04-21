@@ -11,6 +11,11 @@ typedef struct artistas{
     int quantidadeAlbuns;
 } artistas;
 
+void limparCaractere () {
+    int limp; 
+    while ((limp = getchar()) != '\n' && limp != EOF);
+}
+
 void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
     FILE *arquivo = fopen("artistas.txt", "r");
 
@@ -24,8 +29,8 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
         fscanf(arquivo, " %[^\n]", listaArtistas[*posicaoArtista].tipoMusc);
         fscanf(arquivo, " %[^\n]", listaArtistas[*posicaoArtista].naturalidade);
 
-        int c;
-        while ((c = fgetc(arquivo)) != EOF && c != '\n');
+        int limparCaractere;
+        while ((limparCaractere = fgetc(arquivo)) != EOF && limparCaractere != '\n');
 
         listaArtistas[*posicaoArtista].quantidadeAlbuns = 0;
         while(1) {
@@ -35,7 +40,7 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
                 break;
             }
         }
-
+        listaArtistas[*posicaoArtista].quantidadeAlbuns -= 1;
         (*posicaoArtista)++;
     }
 
@@ -43,7 +48,52 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
 }
 
 void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
-        
+    int quantidadeAlbuns = 0;
+    int esc = 1;
+
+    FILE *arquivo = fopen("artistas.txt", "a");
+
+    if(arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.");
+        exit(EXIT_FAILURE);
+    }
+
+    fprintf(arquivo, "\n");
+    limparCaractere();
+
+    printf("\nNome do artista: ");
+    fgets(listaArtistas[*posicaoArtista].nome, sizeof(listaArtistas[*posicaoArtista].nome), stdin);
+    listaArtistas[*posicaoArtista].nome[strcspn(listaArtistas[*posicaoArtista].nome, "\n")] = '\0';
+    fprintf(arquivo, "%s\n", listaArtistas[*posicaoArtista].nome);
+
+    printf("\nTipo musical: ");
+    fgets(listaArtistas[*posicaoArtista].tipoMusc, sizeof(listaArtistas[*posicaoArtista].tipoMusc), stdin);
+    listaArtistas[*posicaoArtista].tipoMusc[strcspn(listaArtistas[*posicaoArtista].tipoMusc, "\n")] = '\0';
+    fprintf(arquivo, "%s\n", listaArtistas[*posicaoArtista].tipoMusc);
+
+    printf("\nNaturalidade: ");
+    fgets(listaArtistas[*posicaoArtista].naturalidade, sizeof(listaArtistas[*posicaoArtista].naturalidade), stdin);
+    listaArtistas[*posicaoArtista].naturalidade[strcspn(listaArtistas[*posicaoArtista].naturalidade, "\n")] = '\0';
+    fprintf(arquivo, "%s\n", listaArtistas[*posicaoArtista].naturalidade);
+
+    do {
+        printf("Digite os albuns do artista, album %d: ", quantidadeAlbuns);
+        fgets(listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns], sizeof(listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns]), stdin);
+        listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns][strcspn(listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns], "\n")] = '\0';
+        fprintf(arquivo, "%s\n", listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns]);
+
+        quantidadeAlbuns++;
+        listaArtistas[*posicaoArtista].quantidadeAlbuns = quantidadeAlbuns;
+
+        printf("\n[0] Digitar novo album. ");
+        printf("\n[1] Encerrar ");
+        scanf("\n%d", &esc);
+        limparCaractere();
+    } while (esc != 1);
+
+    fprintf(arquivo, "%s", "==========");
+
+    (*posicaoArtista)++;
 }
 
 int main () {
@@ -89,6 +139,13 @@ int main () {
             printf("Obrigado por utilizar nosso programa.");
             break;
     }
+
+    printf("\n%s", listaArtistas[15].nome);
+    printf("\n%s", listaArtistas[15].tipoMusc);
+    printf("\n%s", listaArtistas[15].naturalidade);
+    printf("\n%s", listaArtistas[15].listaAlbuns[0]);
+    printf("\n%d", listaArtistas[15].quantidadeAlbuns);
+    printf("\n%d", posicaoArtista);
 
     return 0;
 }
