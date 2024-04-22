@@ -96,10 +96,19 @@ void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
     (*posicaoArtista)++;
 }
 
+void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]){
+    for(int c = 0; c <= *posicaoArtista-1; c++) { 
+        if(strcmp(nomeArtista, listaArtistas[c].nome) == 0) { 
+            printf("Remover artista");
+        }
+    }
+}
+
 int main () {
     artistas listaArtistas[200];
     int posicaoArtista = 0;
     int esc;
+    char nomeArtista[100];
 
     iniciarLista(listaArtistas, &posicaoArtista);
 
@@ -120,7 +129,12 @@ int main () {
             break;
 
         case 2:
-            printf("Remover artista");
+            limparCaractere();
+            printf("Digite o nome do artista que você deseja excluir: ");
+            fgets(nomeArtista, sizeof(nomeArtista), stdin);
+            nomeArtista[strcspn(nomeArtista, "\n")] = '\0';
+
+            removerArtista(listaArtistas, &posicaoArtista, nomeArtista);
             break;
 
         case 3:
