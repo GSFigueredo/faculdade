@@ -104,6 +104,55 @@ void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArti
     }
 }
 
+void editarArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]) {
+
+    int nenhum;
+
+    for(int c = 0; c <= *posicaoArtista-1; c++) { 
+        if(strcmp(nomeArtista, listaArtistas[c].nome) == 0) { 
+            int esc;
+            nenhum = 0;
+
+            printf("\n==================== EDIÇÃO ====================");
+            printf("\n[1] Nome\n");
+            printf("[2] Tipo musical\n");
+            printf("[3] Naturalidade\n");
+            printf("[4] Albuns\n");
+            printf("==================== ****** ====================");
+            printf("\nQual informação você deseja editar? ");
+            scanf("%d", &esc);
+
+            switch(esc) {
+                case 1:
+                    
+                break;    
+
+                case 2:
+                    
+                break;
+
+                case 3:
+                    
+                break;
+
+                case 4:
+                   
+                break;
+
+                default:
+                
+                break;
+            }
+        }  else {
+            nenhum = 1;
+        }
+    }
+
+    if(nenhum != 0) {
+        printf("Nenhum artista encontrado...");
+    }
+}
+
 int main () {
     artistas listaArtistas[200];
     int posicaoArtista = 0;
@@ -118,7 +167,6 @@ int main () {
     printf("[3] Editar artista\n");
     printf("[4] Buscar artista (Binária)\n");
     printf("[5] Buscar álbum\n");
-    printf("[6] Encerrar programa\n");
     printf("==================== **** ====================");
     printf("\nO que deseja fazer? ");
     scanf("%d", &esc);
@@ -138,7 +186,12 @@ int main () {
             break;
 
         case 3:
-            printf("Editar artista");
+            limparCaractere();
+            printf("Digite o nome do artista que você deseja editar: ");
+            fgets(nomeArtista, sizeof(nomeArtista), stdin);
+            nomeArtista[strcspn(nomeArtista, "\n")] = '\0';
+
+            editarArtista(listaArtistas, &posicaoArtista, nomeArtista);
             break;
 
         case 4:
