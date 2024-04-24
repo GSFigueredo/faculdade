@@ -104,7 +104,24 @@ void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArti
     }
 }
 
-void editarArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]) {
+void editarArtista (artistas listaArtistas[], int c, char tipoEdicao[100]) {
+
+    FILE *arquivo = fopen("artistas.txt", "r+");
+
+    if(arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.");
+        exit(EXIT_FAILURE);
+    }
+
+    if(strcmp(tipoEdicao, "editarNome") == 0) {
+        fgets(listaArtistas[c].nome, sizeof(listaArtistas[c].nome), stdin);
+        listaArtistas[c].nome[strcspn(listaArtistas[c].nome, "\n")] = '\0';
+        fprintf(arquivo, "%s\n", listaArtistas[c].nome);
+    }
+
+}
+
+void tipoEdicao(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]) {
 
     int nenhum;
 
@@ -118,29 +135,30 @@ void editarArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtis
             printf("[2] Tipo musical\n");
             printf("[3] Naturalidade\n");
             printf("[4] Albuns\n");
+            printf("[5] Tudo\n");
             printf("==================== ****** ====================");
             printf("\nQual informação você deseja editar? ");
             scanf("%d", &esc);
 
             switch(esc) {
                 case 1:
-                    
+                    editarArtista(listaArtistas, c, "editarNome");
                 break;    
 
                 case 2:
-                    
+                    editarArtista(listaArtistas, posicaoArtista, "editarTipoMusc");
                 break;
 
                 case 3:
-                    
+                    editarArtista(listaArtistas, posicaoArtista, "editarNaturalidade");
                 break;
 
                 case 4:
-                   
+                   editarArtista(listaArtistas, posicaoArtista, "editarAlbuns");
                 break;
 
-                default:
-                
+                case 5:
+                    editarArtista(listaArtistas, posicaoArtista, "editarTudo");
                 break;
             }
         }  else {
@@ -152,6 +170,7 @@ void editarArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtis
         printf("Nenhum artista encontrado...");
     }
 }
+
 
 int main () {
     artistas listaArtistas[200];
@@ -191,7 +210,7 @@ int main () {
             fgets(nomeArtista, sizeof(nomeArtista), stdin);
             nomeArtista[strcspn(nomeArtista, "\n")] = '\0';
 
-            editarArtista(listaArtistas, &posicaoArtista, nomeArtista);
+            tipoEdicao(listaArtistas, &posicaoArtista, nomeArtista);
             break;
 
         case 4:
