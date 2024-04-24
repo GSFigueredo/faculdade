@@ -77,7 +77,7 @@ void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
     fprintf(arquivo, "%s\n", listaArtistas[*posicaoArtista].naturalidade);
 
     do {
-        printf("Digite os albuns do artista, album %d: ", quantidadeAlbuns);
+        printf("Digite os albuns do artista, album %d: ", quantidadeAlbuns+1);
         fgets(listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns], sizeof(listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns]), stdin);
         listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns][strcspn(listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns], "\n")] = '\0';
         fprintf(arquivo, "%s\n", listaArtistas[*posicaoArtista].listaAlbuns[quantidadeAlbuns]);
@@ -85,8 +85,8 @@ void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
         quantidadeAlbuns++;
         listaArtistas[*posicaoArtista].quantidadeAlbuns = quantidadeAlbuns;
 
-        printf("\n[0] Digitar novo album. ");
-        printf("\n[1] Encerrar ");
+        printf("\n[0] Digitar novo album |");
+        printf(" [1] Encerrar: ");
         scanf("\n%d", &esc);
         limparCaractere();
     } while (esc != 1);
@@ -104,7 +104,7 @@ void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArti
     }
 }
 
-void editarArtista (artistas listaArtistas[], int c, char tipoEdicao[100]) {
+void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100]) {
 
     FILE *arquivo = fopen("artistas.txt", "r+");
 
@@ -113,12 +113,26 @@ void editarArtista (artistas listaArtistas[], int c, char tipoEdicao[100]) {
         exit(EXIT_FAILURE);
     }
 
+
     if(strcmp(tipoEdicao, "editarNome") == 0) {
-        fgets(listaArtistas[c].nome, sizeof(listaArtistas[c].nome), stdin);
-        listaArtistas[c].nome[strcspn(listaArtistas[c].nome, "\n")] = '\0';
-        fprintf(arquivo, "%s\n", listaArtistas[c].nome);
+
+        char linhaTxt[200];
+
+        while (fgets(linhaTxt, sizeof(linhaTxt), arquivo) != NULL) {
+            if(strstr(linhaTxt, listaArtistas[c].nome) != NULL) {
+                limparCaractere();
+                fseek(arquivo, -strlen(linhaTxt), SEEK_CUR);
+                printf("Novo nome: ");
+                fgets(listaArtistas[c].nome, sizeof(listaArtistas[c].nome), stdin);
+                listaArtistas[c].nome[strcspn(listaArtistas[c].nome, "\n")] = '\0';
+                fprintf(arquivo, "%s", listaArtistas[c].nome);
+                break;
+            }
+        }
     }
 
+    fclose(arquivo);   
+    
 }
 
 void tipoEdicao(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]) {
@@ -146,19 +160,19 @@ void tipoEdicao(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[
                 break;    
 
                 case 2:
-                    editarArtista(listaArtistas, posicaoArtista, "editarTipoMusc");
+                    editarArtista(listaArtistas, c, "editarTipoMusc");
                 break;
 
                 case 3:
-                    editarArtista(listaArtistas, posicaoArtista, "editarNaturalidade");
+                    editarArtista(listaArtistas, c, "editarNaturalidade");
                 break;
 
                 case 4:
-                   editarArtista(listaArtistas, posicaoArtista, "editarAlbuns");
+                   editarArtista(listaArtistas, c, "editarAlbuns");
                 break;
 
                 case 5:
-                    editarArtista(listaArtistas, posicaoArtista, "editarTudo");
+                    editarArtista(listaArtistas, c, "editarTudo");
                 break;
             }
         }  else {
@@ -177,54 +191,61 @@ int main () {
     int posicaoArtista = 0;
     int esc;
     char nomeArtista[100];
+    int resp = 0;
 
     iniciarLista(listaArtistas, &posicaoArtista);
 
-    printf("==================== MENU ====================");
-    printf("\n[1] Inserir novo artista\n");
-    printf("[2] Remover artista\n");
-    printf("[3] Editar artista\n");
-    printf("[4] Buscar artista (Binária)\n");
-    printf("[5] Buscar álbum\n");
-    printf("==================== **** ====================");
-    printf("\nO que deseja fazer? ");
-    scanf("%d", &esc);
+    do{
+        printf("==================== MENU ====================");
+        printf("\n[1] Inserir novo artista\n");
+        printf("[2] Remover artista\n");
+        printf("[3] Editar artista\n");
+        printf("[4] Buscar artista (Binária)\n");
+        printf("[5] Buscar álbum\n");
+        printf("==================== **** ====================");
+        printf("\nO que deseja fazer? ");
+        scanf("%d", &esc);
 
-    switch(esc) {
-        case 1:
-            inserirArtista(listaArtistas, &posicaoArtista);
-            break;
+        switch(esc) {
+            case 1:
+                inserirArtista(listaArtistas, &posicaoArtista);
+                break;
 
-        case 2:
-            limparCaractere();
-            printf("Digite o nome do artista que você deseja excluir: ");
-            fgets(nomeArtista, sizeof(nomeArtista), stdin);
-            nomeArtista[strcspn(nomeArtista, "\n")] = '\0';
+            case 2:
+                limparCaractere();
+                printf("Digite o nome do artista que você deseja excluir: ");
+                fgets(nomeArtista, sizeof(nomeArtista), stdin);
+                nomeArtista[strcspn(nomeArtista, "\n")] = '\0';
 
-            removerArtista(listaArtistas, &posicaoArtista, nomeArtista);
-            break;
+                removerArtista(listaArtistas, &posicaoArtista, nomeArtista);
+                break;
 
-        case 3:
-            limparCaractere();
-            printf("Digite o nome do artista que você deseja editar: ");
-            fgets(nomeArtista, sizeof(nomeArtista), stdin);
-            nomeArtista[strcspn(nomeArtista, "\n")] = '\0';
+            case 3:
+                limparCaractere();
+                printf("Digite o nome do artista que você deseja editar: ");
+                fgets(nomeArtista, sizeof(nomeArtista), stdin);
+                nomeArtista[strcspn(nomeArtista, "\n")] = '\0';
 
-            tipoEdicao(listaArtistas, &posicaoArtista, nomeArtista);
-            break;
+                tipoEdicao(listaArtistas, &posicaoArtista, nomeArtista);
+                break;
 
-        case 4:
-             printf("Buscar artista (binária)");
-             break;
+            case 4:
+                printf("Buscar artista (binária)");
+                break;
 
-        case 5:
-            printf("Buscar álbum");
-            break;
+            case 5:
+                printf("Buscar álbum");
+                break;
 
-        default:
-            printf("Obrigado por utilizar nosso programa.");
-            break;
-    }
+            default:
+                printf("Obrigado por utilizar nosso programa.");
+                break;
+        }
+
+        printf("Deseja realizar mais uma interação? SIM [0] / NÃO [1] ");
+        scanf("%d", &resp);
+
+    } while (resp != 1);
 
     printf("\n%s", listaArtistas[15].nome);
     printf("\n%s", listaArtistas[15].tipoMusc);
