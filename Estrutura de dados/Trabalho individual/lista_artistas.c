@@ -108,7 +108,7 @@ void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100]) {
 
     FILE *arquivo = fopen("artistas.txt", "r+");
     long posicaoI = 0, posicaoF = 0;
-    char linha[300];
+    char linhaTxt[300];
     int quantidadeAlbuns = 0;
     int esc = 1;
 
@@ -117,9 +117,9 @@ void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100]) {
         exit(EXIT_FAILURE);
     }
 
-    while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-        if (strstr(linha, listaArtistas[c].nome) != NULL) {
-            posicaoI = ftell(arquivo) - strlen(linha);
+    while (fgets(linhaTxt, sizeof(linhaTxt), arquivo) != NULL) {
+        if (strstr(linhaTxt, listaArtistas[c].nome) != NULL) {
+            posicaoI = ftell(arquivo) - strlen(linhaTxt);
             limparCaractere();
 
             if(strcmp(tipoEdicao, "editarNome") == 0) { 
@@ -160,8 +160,8 @@ void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100]) {
     }
 
     fseek(arquivo, posicaoI, SEEK_SET);
-    while (fgets(linha, sizeof(linha), arquivo) != NULL) {
-        if (strstr(linha, "==========") != NULL) {
+    while (fgets(linhaTxt, sizeof(linhaTxt), arquivo) != NULL) {
+        if (strstr(linhaTxt, "==========") != NULL) {
             posicaoF = ftell(arquivo); 
             break;
         }
@@ -295,11 +295,11 @@ int main () {
 
     } while (resp != 1);
 
-    printf("\n%s", listaArtistas[15].nome);
-    printf("\n%s", listaArtistas[15].tipoMusc);
-    printf("\n%s", listaArtistas[15].naturalidade);
-    printf("\n%s", listaArtistas[15].listaAlbuns[0]);
-    printf("\n%d", listaArtistas[15].quantidadeAlbuns);
+    printf("\n%s", listaArtistas[posicaoArtista].nome);
+    printf("\n%s", listaArtistas[posicaoArtista].tipoMusc);
+    printf("\n%s", listaArtistas[posicaoArtista].naturalidade);
+    printf("\n%s", listaArtistas[posicaoArtista].listaAlbuns[0]);
+    printf("\n%d", listaArtistas[posicaoArtista].quantidadeAlbuns);
     printf("\n%d", posicaoArtista);
 
     return 0;
