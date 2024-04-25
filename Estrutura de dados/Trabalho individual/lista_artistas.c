@@ -16,6 +16,28 @@ void limparCaractere () {
     while ((limp = getchar()) != '\n' && limp != EOF);
 }
 
+/*void reescreverLista(artistas listaArtistas[], int quantidadeArtistas) {
+
+    FILE *arquivo = fopen("artistas.txt", "w");
+
+    if(arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.");
+        exit(1);
+    }
+
+
+    for(int cont = 0; cont <= quantidadeArtistas-1; cont++) {
+        fprintf(arquivo, "%s\n", listaArtistas[cont].nome);
+        fprintf(arquivo, "%s\n", listaArtistas[cont].tipoMusc);
+        fprintf(arquivo, "%s\n", listaArtistas[cont].naturalidade);
+        for(int quanAlbuns = 0; quanAlbuns <= listaArtistas[cont].quantidadeAlbuns; quanAlbuns++) {
+            fprintf(arquivo, "%s\n", listaArtistas[cont].listaAlbuns[quanAlbuns]);
+        }
+    }
+
+    fclose(arquivo);
+} */
+
 void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
     FILE *arquivo = fopen("artistas.txt", "r");
 
@@ -45,6 +67,8 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
     }
 
     fclose(arquivo);
+
+    //reescreverLista(listaArtistas, *posicaoArtista);
 }
 
 void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
@@ -233,12 +257,30 @@ void tipoEdicao(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[
     }
 }
 
+void buscarAlbum(artistas listaArtistas[], int quanArtistas, char nomeAlbum[200]) {
+
+    int encontro = 0;
+
+    for(int cont = 0; cont <= quanArtistas-1; cont++) {
+        for(int contAlbuns = 0; contAlbuns <= listaArtistas[cont].quantidadeAlbuns; contAlbuns++) {
+            if(strcmp(nomeAlbum, listaArtistas[cont].listaAlbuns[contAlbuns]) == 0){
+                printf("\nAlbum %s, ele pertence ao artista: %s", listaArtistas[cont].listaAlbuns[contAlbuns], listaArtistas[cont].nome);
+                encontro = 1;
+            }
+        }
+    }
+
+    if(encontro == 0) {
+        printf("\nNenhum album foi encontrado.");
+    }
+}
 
 int main () {
     artistas listaArtistas[200];
     int posicaoArtista = 0;
     int esc;
     char nomeArtista[100];
+    char nomeAlbum[100];
     int resp = 0;
 
     iniciarLista(listaArtistas, &posicaoArtista);
@@ -282,7 +324,12 @@ int main () {
                 break;
 
             case 5:
-                printf("Buscar álbum");
+                limparCaractere();
+                printf("Digite o nome do album: ");
+                fgets(nomeAlbum, sizeof(nomeAlbum), stdin);
+                nomeAlbum[strcspn(nomeAlbum, "\n")] = '\0';
+
+                buscarAlbum(listaArtistas, &posicaoArtista, nomeArtista);
                 break;
 
             default:
@@ -290,7 +337,7 @@ int main () {
                 break;
         }
 
-        printf("Deseja realizar mais uma interação? SIM [0] / NÃO [1] ");
+        printf("\nDeseja realizar mais uma interação? SIM [0] / NÃO [1] ");
         scanf("%d", &resp);
 
     } while (resp != 1);

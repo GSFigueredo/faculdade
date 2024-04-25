@@ -15,5 +15,6 @@ void inserirArtista (artistas listaArtistas[], int *posicaoArtista);
 void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]);
 void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100]);
 void tipoEdicao(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[200]);
+void buscarAlbum(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[200]);
 
 #endif
