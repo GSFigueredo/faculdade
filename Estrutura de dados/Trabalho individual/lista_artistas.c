@@ -16,28 +16,6 @@ void limparCaractere () {
     while ((limp = getchar()) != '\n' && limp != EOF);
 }
 
-/*void reescreverLista(artistas listaArtistas[], int quantidadeArtistas) {
-
-    FILE *arquivo = fopen("artistas.txt", "w");
-
-    if(arquivo == NULL) {
-        printf("Erro ao abrir o arquivo.");
-        exit(1);
-    }
-
-
-    for(int cont = 0; cont <= quantidadeArtistas-1; cont++) {
-        fprintf(arquivo, "%s\n", listaArtistas[cont].nome);
-        fprintf(arquivo, "%s\n", listaArtistas[cont].tipoMusc);
-        fprintf(arquivo, "%s\n", listaArtistas[cont].naturalidade);
-        for(int quanAlbuns = 0; quanAlbuns <= listaArtistas[cont].quantidadeAlbuns; quanAlbuns++) {
-            fprintf(arquivo, "%s\n", listaArtistas[cont].listaAlbuns[quanAlbuns]);
-        }
-    }
-
-    fclose(arquivo);
-} */
-
 void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
     FILE *arquivo = fopen("artistas.txt", "r");
 
@@ -68,8 +46,30 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
 
     fclose(arquivo);
 
-    //reescreverLista(listaArtistas, *posicaoArtista);
 }
+
+void reescreverLista(artistas listaArtistas[], int quantidadeArtistas) {
+
+    FILE *arquivo = fopen("artistas.txt", "w");
+
+    if(arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.");
+        exit(1);
+    }
+
+    fseek(arquivo, 0, SEEK_SET);
+
+    for(int cont = 0; cont < quantidadeArtistas; cont++) {
+        fprintf(arquivo, "%s\n", listaArtistas[1].nome);
+        fprintf(arquivo, "%s\n", listaArtistas[1].tipoMusc);
+        fprintf(arquivo, "%s\n", listaArtistas[1].naturalidade);
+        for(int quanAlbuns = 0; quanAlbuns <= listaArtistas[1].quantidadeAlbuns; quanAlbuns++) {
+            fprintf(arquivo, "%s", listaArtistas[1].listaAlbuns[quanAlbuns]);
+        }
+    } 
+
+    fclose(arquivo);
+} 
 
 void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
     int quantidadeAlbuns = 0;
@@ -261,7 +261,12 @@ void buscarAlbum(artistas listaArtistas[], int quanArtistas, char nomeAlbum[200]
 
     int encontro = 0;
 
-    for(int cont = 0; cont <= quanArtistas-1; cont++) {
+    printf("número artistas: %d", quanArtistas);
+    printf("\nartista: %s", listaArtistas[4].nome);
+    printf("\nquantidade de albuns: %d", listaArtistas[4].quantidadeAlbuns);
+    printf("\nnome album: %s", nomeAlbum);
+
+    for(int cont = 0; cont < quanArtistas; cont++) {
         for(int contAlbuns = 0; contAlbuns <= listaArtistas[cont].quantidadeAlbuns; contAlbuns++) {
             if(strcmp(nomeAlbum, listaArtistas[cont].listaAlbuns[contAlbuns]) == 0){
                 printf("\nAlbum %s, ele pertence ao artista: %s", listaArtistas[cont].listaAlbuns[contAlbuns], listaArtistas[cont].nome);
@@ -284,6 +289,7 @@ int main () {
     int resp = 0;
 
     iniciarLista(listaArtistas, &posicaoArtista);
+    //reescreverLista(listaArtistas, posicaoArtista);
 
     do{
         printf("==================== MENU ====================");
@@ -329,7 +335,7 @@ int main () {
                 fgets(nomeAlbum, sizeof(nomeAlbum), stdin);
                 nomeAlbum[strcspn(nomeAlbum, "\n")] = '\0';
 
-                buscarAlbum(listaArtistas, &posicaoArtista, nomeArtista);
+                buscarAlbum(listaArtistas, posicaoArtista, nomeAlbum);
                 break;
 
             default:
