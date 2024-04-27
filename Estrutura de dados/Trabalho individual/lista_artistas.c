@@ -52,7 +52,7 @@ void iniciarLista(artistas listaArtistas[], int *posicaoArtista) {
 int ordenarAlfabeticamente(const void *a, const void *b) {
     const artistas *artistaA = (const artistas *)a;
     const artistas *artistaB = (const artistas *)b;
-    return strcmp(artistaA->nome, artistaB->nome);
+    return strcasecmp(artistaA->nome, artistaB->nome);
 }
 
 void limparString(char *str) {
@@ -76,7 +76,7 @@ void reescreverLista(artistas listaArtistas[], int quantidadeArtistas) {
 
     qsort(listaArtistas, quantidadeArtistas-1, sizeof(artistas), ordenarAlfabeticamente);
 
-    FILE *arquivo = fopen("artistas.txt", "w");
+    FILE *arquivo = fopen("artistas.txt", "w+");
 
     if(arquivo == NULL) {
         printf("Erro ao abrir o arquivo.");
@@ -162,7 +162,11 @@ void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
 
     (*posicaoArtista)++;
 
+    qsort(listaArtistas, *posicaoArtista, sizeof(artistas), ordenarAlfabeticamente);
+
     reescreverLista(listaArtistas, *posicaoArtista);
+
+    printf("\nArtista inserido com sucesso.");
 }
 
 void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]) {
@@ -271,18 +275,19 @@ void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100], int po
 
     fclose(arquivo);
 
+    qsort(listaArtistas, posicaoArtista, sizeof(artistas), ordenarAlfabeticamente);
     reescreverLista(listaArtistas, posicaoArtista);
     
 }
 
 void tipoEdicao(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[200]) {
 
-    int nenhum;
+    int nenhum = 0;
     
     for(int c = 0; c <= *posicaoArtista-1; c++) { 
         if(strcmp(nomeArtista, listaArtistas[c].nome) == 0) { 
             int esc;
-            nenhum = 0;
+            nenhum = 1;
 
             printf("\n==================== EDIÇÃO ====================");
             printf("\n[1] Nome\n");
@@ -310,13 +315,13 @@ void tipoEdicao(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[
                    editarArtista(listaArtistas, c, "editarAlbuns", *posicaoArtista);
                 break;
             }
-        }  else {
-            nenhum = 1;
-        }
+        } 
     }
 
-    if(nenhum != 0) {
-        printf("Nenhum artista encontrado...");
+    if(nenhum == 1) {
+        printf("\nArtista modificado com sucesso.");
+    } else {
+        printf("\nNenhum artista encontrado.");
     }
 }
 
@@ -346,7 +351,15 @@ void buscarBinario(artistas listaArtistas[], int inicio, int fim, char nomeArtis
         int comparacao = strcmp(listaArtistas[meio].nome, nomeArtista);
 
         if (comparacao == 0) {
-            printf("Artista %s encontrado com sucesso.\n", listaArtistas[meio].nome);
+            printf("\nArtista encontrado com sucesso.");
+            printf("\nArtista: %s", listaArtistas[meio].nome);
+            printf("\nTipo musical: %s", listaArtistas[meio].tipoMusc);
+            printf("\nOrigem: %s", listaArtistas[meio].naturalidade);
+            for(int c = 0; c < listaArtistas[meio].quantidadeAlbuns; c++) {
+                printf("\nAlbum %d: ", c+1);
+                printf("%s", listaArtistas[meio].listaAlbuns[c]);
+            }
+            
             encontrado = 1;
             break;
         }
