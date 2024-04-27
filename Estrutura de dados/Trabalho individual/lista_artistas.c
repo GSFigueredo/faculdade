@@ -54,6 +54,23 @@ int ordenarAlfabeticamente(const void *a, const void *b) {
     return strcmp(artistaA->nome, artistaB->nome);
 }
 
+void limparString(char *str) {
+    char *end;
+
+    while (isspace((unsigned char)*str)) {
+        str++;
+    }
+    if (*str == 0) { 
+        return;
+    }
+
+    end = str + strlen(str) - 1;
+    while (end > str && isspace((unsigned char)*end)) {
+        end--;
+    }
+    *(end + 1) = '\0';
+}
+
 void reescreverLista(artistas listaArtistas[], int quantidadeArtistas) {
 
     qsort(listaArtistas, quantidadeArtistas, sizeof(artistas), ordenarAlfabeticamente);
@@ -68,6 +85,14 @@ void reescreverLista(artistas listaArtistas[], int quantidadeArtistas) {
     fseek(arquivo, 0, SEEK_SET);
 
     for(int cont = 0; cont < quantidadeArtistas; cont++) {
+
+        limparString(listaArtistas[cont].nome);
+        limparString(listaArtistas[cont].tipoMusc);
+        limparString(listaArtistas[cont].naturalidade);
+        for (int quanAlbuns = 0; quanAlbuns < listaArtistas[cont].quantidadeAlbuns; quanAlbuns++) {
+            limparString(listaArtistas[cont].listaAlbuns[quanAlbuns]);
+        }
+
         fprintf(arquivo, "%s\n", listaArtistas[cont].nome);
         fprintf(arquivo, "%s\n", listaArtistas[cont].tipoMusc);
         fprintf(arquivo, "%s\n", listaArtistas[cont].naturalidade);
@@ -137,11 +162,27 @@ void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
     (*posicaoArtista)++;
 }
 
-void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]){
-    for(int c = 0; c <= *posicaoArtista-1; c++) { 
-        if(strcmp(nomeArtista, listaArtistas[c].nome) == 0) { 
-            printf("Remover artista");
+void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]) {
+    int indice = -1;
+
+    for(int c = 0; c < *posicaoArtista; c++) {
+        if(strcmp(nomeArtista, listaArtistas[c].nome) == 0) {
+            indice = c;
+            break;
         }
+    }
+
+    if (indice != -1) {
+        for (int i = indice; i < *posicaoArtista - 1; i++) {
+            listaArtistas[i] = listaArtistas[i + 1];
+        }
+        (*posicaoArtista)--;
+
+        reescreverLista(listaArtistas, *posicaoArtista);
+        
+        printf("Artista removido com sucesso.\n");
+    } else {
+        printf("Artista não encontrado.\n");
     }
 }
 
@@ -292,6 +333,32 @@ void buscarAlbum(artistas listaArtistas[], int quanArtistas, char nomeAlbum[200]
     }
 }
 
+void buscarBinario(artistas listaArtistas[], int inicio, int fim, char nomeArtista[]) {
+    int encontrado = 0;
+
+    while (inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        int comparacao = strcmp(listaArtistas[meio].nome, nomeArtista);
+
+        if (comparacao == 0) {
+            printf("Artista %s encontrado com sucesso.\n", listaArtistas[meio].nome);
+            encontrado = 1;
+            break;
+        }
+
+        if (comparacao > 0) {
+            fim = meio - 1;
+        } else { 
+            inicio = meio + 1;
+        }
+    }
+
+    if (!encontrado) {
+        printf("Artista não encontrado.\n");
+    }
+}
+
+
 int main () {
     artistas listaArtistas[200];
     int posicaoArtista = 0;
@@ -338,7 +405,12 @@ int main () {
                 break;
 
             case 4:
-                printf("Buscar artista (binária)");
+                limparCaractere();
+                printf("Digite o nome do artista que você deseja buscar: ");
+                fgets(nomeArtista, sizeof(nomeArtista), stdin);
+                nomeArtista[strcspn(nomeArtista, "\n")] = '\0';
+
+                buscarBinario(listaArtistas, 0, posicaoArtista - 1, nomeArtista);
                 break;
 
             case 5:
@@ -355,17 +427,12 @@ int main () {
                 break;
         }
 
+        qsort(listaArtistas, posicaoArtista, sizeof(artistas), ordenarAlfabeticamente);
+
         printf("\nDeseja realizar mais uma interação? SIM [0] / NÃO [1] ");
         scanf("%d", &resp);
 
     } while (resp != 1);
-
-    printf("\n%s", listaArtistas[posicaoArtista].nome);
-    printf("\n%s", listaArtistas[posicaoArtista].tipoMusc);
-    printf("\n%s", listaArtistas[posicaoArtista].naturalidade);
-    printf("\n%s", listaArtistas[posicaoArtista].listaAlbuns[0]);
-    printf("\n%d", listaArtistas[posicaoArtista].quantidadeAlbuns);
-    printf("\n%d", posicaoArtista);
 
     return 0;
 }
