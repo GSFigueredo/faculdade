@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <ctype.h>
 
 typedef struct artistas{
     char nome[50];
@@ -73,7 +74,7 @@ void limparString(char *str) {
 
 void reescreverLista(artistas listaArtistas[], int quantidadeArtistas) {
 
-    qsort(listaArtistas, quantidadeArtistas, sizeof(artistas), ordenarAlfabeticamente);
+    qsort(listaArtistas, quantidadeArtistas-1, sizeof(artistas), ordenarAlfabeticamente);
 
     FILE *arquivo = fopen("artistas.txt", "w");
 
@@ -160,6 +161,8 @@ void inserirArtista (artistas listaArtistas[], int *posicaoArtista) {
     fclose(arquivo);
 
     (*posicaoArtista)++;
+
+    reescreverLista(listaArtistas, *posicaoArtista);
 }
 
 void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[100]) {
@@ -186,7 +189,7 @@ void removerArtista(artistas listaArtistas[], int *posicaoArtista, char nomeArti
     }
 }
 
-void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100]) {
+void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100], int posicaoArtista) {
 
     FILE *arquivo = fopen("artistas.txt", "r+");
     long posicaoI = 0, posicaoF = 0;
@@ -267,6 +270,8 @@ void editarArtista(artistas listaArtistas[], int c, char tipoEdicao[100]) {
     fprintf(arquivo, "%s", "==========");
 
     fclose(arquivo);
+
+    reescreverLista(listaArtistas, posicaoArtista);
     
 }
 
@@ -290,19 +295,19 @@ void tipoEdicao(artistas listaArtistas[], int *posicaoArtista, char nomeArtista[
 
             switch(esc) {
                 case 1:
-                    editarArtista(listaArtistas, c, "editarNome");
+                    editarArtista(listaArtistas, c, "editarNome", *posicaoArtista);
                 break;    
 
                 case 2:
-                    editarArtista(listaArtistas, c, "editarTipoMusc");
+                    editarArtista(listaArtistas, c, "editarTipoMusc", *posicaoArtista);
                 break;
 
                 case 3:
-                    editarArtista(listaArtistas, c, "editarNaturalidade");
+                    editarArtista(listaArtistas, c, "editarNaturalidade", *posicaoArtista);
                 break;
 
                 case 4:
-                   editarArtista(listaArtistas, c, "editarAlbuns");
+                   editarArtista(listaArtistas, c, "editarAlbuns", *posicaoArtista);
                 break;
             }
         }  else {

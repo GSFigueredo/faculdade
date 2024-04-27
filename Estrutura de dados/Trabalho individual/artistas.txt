@@ -1,9 +1,3 @@
-Alabama Shakes
-Blues
-Athens, Alabama, E.U.A.
-Boys & Girls
-Sound & Color
-==========
 American Football
 Emo
 Urbana, Illinois, E.U.A
@@ -13,7 +7,7 @@ American Football (2019)
 ==========
 Belchior
 MPB
-Sobral, CearÃ¡, Brasil
+mineiro
 Belchior
 AlucinaÃ§Ã£o
 CoraÃ§Ã£o Selvagem
@@ -214,8 +208,26 @@ Yellow Submarine
 Abbey Road
 Let It Be
 ==========
+alabama movies
+Blues
+Athens, Alabama, E.U.A.
+Boys & Girls
+Sound & Color
+==========
+amado jorgino
+mpb
+bsb
+todos e nada
+nada e todos
+==========
+bruno roberto
+mpb
+bsb
+todos
+nadas
+==========
 tião maia
 SÃ£o Paulo, SÃ£o Paulo, Brasil
 RecomeÃ§ar
 Mil Coisas InvisÃ­veis
-==========   
+==========
