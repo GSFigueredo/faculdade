@@ -1,55 +1,33 @@
-juniorl Floyd
-Rock Progressivo
-Londres, Inglaterra
-The Piper at the Gates of Dawn 
-A Saucerful of Secrets 
-More 
-Ummagumma 
-Atom Heart Mother 
-Meddle 
-Obscured by Clouds 
-The Dark Side of the Moon 
-Wish You Were Here 
-Animals 
-The Wall 
-The Final Cut 
-A Momentary Lapse of Reason 
-The Division Bell 
-The Endless River 
+Alabama Shakes
+Blues
+Athens, Alabama, E.U.A.
+Boys & Girls 
+Sound & Color 
 ==========
-Radiohead
-Rock Alternativo
-Abingdon, Oxfordshire, Inglaterra
-Pablo Honey 
-The Bends 
-OK Computer 
-Kid A 
-Amnesiac 
-Hail to the Thief 
-In Rainbows 
-The King of Limbs 
-A Moon Shaped Pool 
+American Football
+Emo
+Urbana, Illinois, E.U.A
+American Football (1999)
+American Football (2016)
+American Football (2019)
 ==========
-Marvin Gaye
-R&B
-Washington, D.C., E.U.A
-The Soulful Moods of Marvin Gaye 
-That Stubborn Kinda Fellow 
-When I'm Alone I Cry 
-Hello Broadway 
-How Sweet It Is to Be Loved by You 
-A Tribute to the Great Nat "King" Cole 
-Moods of Marvin Gaye 
-In the Groove 
-M.P.G. 
-That's the Way Love Is 
-What's Going On 
-Trouble Man 
-Let's Get It On 
-I Want You 
-Here, My Dear 
-In Our Lifetime 
-Midnight Love 
+Belchior
+MPB
+Sobral, CearÃ¡, Brasil
+Belchior 
+AlucinaÃ§Ã£o 
+CoraÃ§Ã£o Selvagem 
+Todos os Sentidos 
+Era uma Vez um Homem e Seu Tempo 
+Objeto Direto 
+ParaÃ­so 
+Cenas do PrÃ³ximo CapÃ­tulo 
+Melodrama 
+Elogio da Loucura 
+Divina ComÃ©dia Humana 
+Baihuno 
+VÃ­cio Elegante 
+Autorretrato 
 ==========
 Bob Dylan
 Folk
@@ -95,23 +73,21 @@ Triplicate
 Rough and Rowdy Ways 
 Shadow Kingdom 
 ==========
-Belchior
-MPB
-Sobral, CearÃ¡, Brasil
-Belchior 
-AlucinaÃ§Ã£o 
-CoraÃ§Ã£o Selvagem 
-Todos os Sentidos 
-Era uma Vez um Homem e Seu Tempo 
-Objeto Direto 
-ParaÃ­so 
-Cenas do PrÃ³ximo CapÃ­tulo 
-Melodrama 
-Elogio da Loucura 
-Divina ComÃ©dia Humana 
-Baihuno 
-VÃ­cio Elegante 
-Autorretrato 
+Frank Ocean
+R&B
+Long Beach, California, E.U.A.
+Nostalgia, Ultra 
+Channel Orange 
+Endless 
+Blonde 
+==========
+JosÃ© GonzÃ¡lez
+Folk
+Gotemburgo, SuÃ©cia
+Veneer
+In Our Nature
+Vestiges & Claws
+Local Valley
 ==========
 Kendrick Lamar
 Hip Hop
@@ -121,12 +97,6 @@ Good Kid, M.A.A.D City
 To Pimp a Butterfly 
 Damn 
 Mr. Morale & the Big Steppers 
-==========
-Alabama Shakes
-Blues
-Athens, Alabama, E.U.A.
-Boys & Girls 
-Sound & Color 
 ==========
 Kings of Leon
 Rock Alternativo
@@ -139,26 +109,6 @@ Come Around Sundown
 Mechanical Bull 
 Walls 
 When You See Yourself 
-==========
-Tim Bernardes
-SÃ£o Paulo, SÃ£o Paulo, Brasil
-RecomeÃ§ar
-Mil Coisas InvisÃ­veis
-==========
-Pearl Jam
-Grunge
-Seattle, Washington, E.U.A.
-Ten 
-Vs. 
-Vitalogy 
-No Code 
-Yield 
-Binaural 
-Riot Act 
-Pearl Jam 
-Backspacer 
-Lightning Bolt 
-Gigaton 
 ==========
 MFDOOM
 Hip Hop
@@ -179,13 +129,73 @@ NehruvianDoom
 Czarface Meets Metal Face 
 Super What? 
 ==========
-Frank Ocean
+Marvin Gaye
 R&B
-Long Beach, California, E.U.A.
-Nostalgia, Ultra 
-Channel Orange 
-Endless 
-Blonde 
+Washington, D.C., E.U.A
+The Soulful Moods of Marvin Gaye 
+That Stubborn Kinda Fellow 
+When I'm Alone I Cry 
+Hello Broadway 
+How Sweet It Is to Be Loved by You 
+A Tribute to the Great Nat "King" Cole 
+Moods of Marvin Gaye 
+In the Groove 
+M.P.G. 
+That's the Way Love Is 
+What's Going On 
+Trouble Man 
+Let's Get It On 
+I Want You 
+Here, My Dear 
+In Our Lifetime 
+Midnight Love 
+==========
+Pearl Jam
+Grunge
+Seattle, Washington, E.U.A.
+Ten 
+Vs. 
+Vitalogy 
+No Code 
+Yield 
+Binaural 
+Riot Act 
+Pearl Jam 
+Backspacer 
+Lightning Bolt 
+Gigaton 
+==========
+Pink Floyd
+Rock Progressivo
+Londres, Inglaterra
+The Piper at the Gates of Dawn 
+A Saucerful of Secrets 
+More 
+Ummagumma 
+Atom Heart Mother 
+Meddle 
+Obscured by Clouds 
+The Dark Side of the Moon 
+Wish You Were Here 
+Animals 
+The Wall 
+The Final Cut 
+A Momentary Lapse of Reason 
+The Division Bell 
+The Endless River 
+==========
+Radiohead
+Rock Alternativo
+Abingdon, Oxfordshire, Inglaterra
+Pablo Honey 
+The Bends 
+OK Computer 
+Kid A 
+Amnesiac 
+Hail to the Thief 
+In Rainbows 
+The King of Limbs 
+A Moon Shaped Pool 
 ==========
 The Beatles
 Rock
@@ -204,30 +214,13 @@ Yellow Submarine
 Abbey Road 
 Let It Be 
 ==========
-JosÃ© GonzÃ¡lez
-Folk
-Gotemburgo, SuÃ©cia
-Veneer
-In Our Nature
-Vestiges & Claws
-Local Valley
+Tim Bernardes
+SÃ£o Paulo, SÃ£o Paulo, Brasil
+RecomeÃ§ar
+Mil Coisas InvisÃ­veis
 ==========
-American Football
-Emo
-Urbana, Illinois, E.U.A
-American Football (1999)
-American Football (2016)
-American Football (2019)
-==========
-gabriel
-rap
-minas gerais
-amor e love
-tudo
-==========
-marcos
-rap
+saulo
+reggae
 bsb
-oi
-thcua
+teste
 ==========
