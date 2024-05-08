@@ -4,19 +4,16 @@
 #include <math.h>
 #include <ctype.h>
 
-typedef struct quartos
-{
+typedef struct quartos{
     char numeroQuarto[200];
     char status[200];
     char listaHospedes[200][10];
     int quantHospedesQuarto;
 } quartos;
 
-void limparCaractere()
-{
+void limparCaractere(){
     int limp;
-    while ((limp = getchar()) != '\n' && limp != EOF)
-        ;
+    while ((limp = getchar()) != '\n' && limp != EOF);
 }
 
 void limparString(char *str) {
@@ -36,18 +33,15 @@ void limparString(char *str) {
     *(end + 1) = '\0';
 }
 
-void iniciarLista(quartos quarto[], int *posicaoQuarto)
-{
+void iniciarLista(quartos quarto[], int *posicaoQuarto){
     FILE *arquivo = fopen("hospedes.txt", "r");
 
-    if (arquivo == NULL)
-    {
+    if (arquivo == NULL){
         printf("Erro ao abrir o arquivo.");
         exit(EXIT_FAILURE);
     }
 
-    while (!feof(arquivo))
-    {
+    while (!feof(arquivo)){
         fscanf(arquivo, " %[^\n]", quarto[*posicaoQuarto].numeroQuarto);
         fscanf(arquivo, " %[^\n]", quarto[*posicaoQuarto].status);
 
@@ -55,8 +49,7 @@ void iniciarLista(quartos quarto[], int *posicaoQuarto)
         while ((limparCaractere = fgetc(arquivo)) != EOF && limparCaractere != '\n');
 
         quarto[*posicaoQuarto].quantHospedesQuarto = 0;
-        while (1)
-        {
+        while (1){
             fscanf(arquivo, " %[^\n]", quarto[*posicaoQuarto].listaHospedes[quarto[*posicaoQuarto].quantHospedesQuarto]);
             quarto[*posicaoQuarto].quantHospedesQuarto++;
             if (strncmp(quarto[*posicaoQuarto].listaHospedes[quarto[*posicaoQuarto].quantHospedesQuarto - 1], "==========", strlen("==========")) == 0)
@@ -113,6 +106,7 @@ void inserirHospede(quartos quarto[], int quartoVazio){
     long posicaoI = 0, posicaoF = 0;
     char linhaTxt[300];
     int esc = 1;
+    int semQuart;
 
     FILE *arquivo = fopen("hospedes.txt", "r+");
 
@@ -152,11 +146,73 @@ void inserirHospede(quartos quarto[], int quartoVazio){
     fclose(arquivo);
 }
 
+void liberarQuarto(quartos quarto[], int *posicaoQuarto) {
+    char numeroQuarto[200];
+    int encontrado = 0;
+
+    printf("Digite o número do quarto que deseja liberar: ");
+    scanf("%s", numeroQuarto);
+
+    for (int i = 0; i < *posicaoQuarto; i++) {
+        if (strcmp(quarto[i].numeroQuarto, numeroQuarto) == 0) {
+            encontrado = 1;
+            strcpy(quarto[i].status, "vazio");
+            quarto[i].quantHospedesQuarto = 0;
+            printf("O quarto %s foi liberado com sucesso.\n", numeroQuarto);
+            break;
+        }
+    }
+
+    if (!encontrado) {
+        printf("Quarto não encontrado.\n");
+        return;
+    }
+
+   /* FILE *arquivo = fopen("hospedes.txt", "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < *posicaoQuarto; i++) {
+        fprintf(arquivo, "%s\n", quarto[i].numeroQuarto);
+        fprintf(arquivo, "%s\n", quarto[i].status);
+        for (int j = 0; j < quarto[i].quantHospedesQuarto; j++) {
+            fprintf(arquivo, "%s\n", quarto[i].listaHospedes[j]);
+        }
+        fprintf(arquivo, "%s\n", "==========");
+    }
+
+    fclose(arquivo); */
+
+    reescreverLista(quarto, *posicaoQuarto);
+}
+
+void mostrarQuartosVazios(quartos quarto[], int quantidadeQuartos) {
+
+    int vazio = 1;
+
+    printf("Quartos vazios:\n");
+    for (int i = 0; i < quantidadeQuartos; i++) {
+        if (strcmp(quarto[i].status, "vazio") == 0) {
+            printf("%s\n", quarto[i].numeroQuarto);
+
+            vazio = 0;
+        }
+    }
+
+    if(vazio == 1) {
+        printf("\nNão há quartos vazios no momento.");
+    }
+}
+
 int ordenarAlfabeticamente(const void *a, const void *b) {
     const char *hospedeA = (const char *)a;
     const char *hospedeB = (const char *)b;
     return strcmp(hospedeA, hospedeB);
 }
+
 
 void listarHospedes(quartos quarto[], int quantidadeQuartos) {
     char hospedesTemp[40][quantidadeQuartos-1]; 
@@ -184,10 +240,12 @@ int main(){
     int esc;
     int resp = 0;
     int quartoVazio;
+    int lotado;
 
     iniciarLista(quarto, &posicaoQuarto);
 
     do{
+        system("clear");
         printf("==================== MENU ====================");
         printf("\n[1] Inserir hóspedes\n");
         printf("[2] Listar hóspedes por ordem alfabética\n");
@@ -204,12 +262,19 @@ int main(){
             for (int c = 0; c < posicaoQuarto; c++){
                 if (strcmp(quarto[c].status, "vazio") == 0){
                     quartoVazio = c;
+                    lotado = 0;
                     break;
+                } else {
+                    lotado = 1;
                 }
             }
 
-            inserirHospede(quarto, quartoVazio);
-            reescreverLista(quarto, posicaoQuarto);
+            if(lotado == 0) {
+                inserirHospede(quarto, quartoVazio);
+                reescreverLista(quarto, posicaoQuarto);
+            } else{
+                printf("Não há quartos livres no momento.");
+            }
             break;
 
         case 2:
@@ -225,11 +290,11 @@ int main(){
             break;
 
         case 5:
-            // liberar quarto
+            liberarQuarto(quarto, &posicaoQuarto);
             break;
 
         case 6:
-            // quartos vazios
+            mostrarQuartosVazios(quarto, posicaoQuarto);
             break;
 
         default:
@@ -241,8 +306,6 @@ int main(){
         scanf("%d", &resp);
 
     } while (resp != 1);
-
-    printf("\n quartos: %d", posicaoQuarto);
 
     return 0;
 }
