@@ -134,10 +134,15 @@ void inserirHospede(quartos quarto[], int quartoVazio){
                 quantHospedesQuarto++;
                 quarto[quartoVazio].quantHospedesQuarto = quantHospedesQuarto;
 
-                printf("\n[0] Digitar novo hospede |");
-                printf(" [1] Encerrar: ");
-                scanf("\n%d", &esc);
-                limparCaractere();
+                if(quantHospedesQuarto == 4) {
+                    printf("\nLimite de quatro hóspedes por quarto.");
+                    esc = 1;
+                } else {
+                    printf("\n[0] Digitar novo hospede |");
+                    printf(" [1] Encerrar: ");
+                    scanf("\n%d", &esc);
+                    limparCaractere();
+                }
             } while (esc != 1);
 
         }
@@ -145,6 +150,31 @@ void inserirHospede(quartos quarto[], int quartoVazio){
         strcpy(quarto[quartoVazio].status, "reservado");
     }
     fclose(arquivo);
+}
+
+int ordenarAlfabeticamente(const void *a, const void *b) {
+    const char *hospedeA = (const char *)a;
+    const char *hospedeB = (const char *)b;
+    return strcmp(hospedeA, hospedeB);
+}
+
+void listarHospedes(quartos quarto[], int quantidadeQuartos) {
+    char hospedesTemp[40][quantidadeQuartos-1]; 
+    int totalHospedes = 0;
+
+    for(int col = 0; col < quantidadeQuartos; col++) {
+        for(int lin = 0; lin < quarto[col].quantHospedesQuarto; lin++) {
+            strcpy(hospedesTemp[totalHospedes], quarto[col].listaHospedes[lin]);
+            totalHospedes++;
+        }
+    }
+
+    qsort(hospedesTemp, totalHospedes, sizeof(hospedesTemp[0]), ordenarAlfabeticamente);
+
+    printf("\nLista de hóspedes:");
+    for(int i = 0; i < totalHospedes; i++) {
+        printf("\n%d. %s", i+1, hospedesTemp[i]);
+    }
 }
 
 int main(){
@@ -183,7 +213,7 @@ int main(){
             break;
 
         case 2:
-            // listar hóspedes por ordem alfabética
+            listarHospedes(quarto, posicaoQuarto);
             break;
 
         case 3:
@@ -211,6 +241,8 @@ int main(){
         scanf("%d", &resp);
 
     } while (resp != 1);
+
+    printf("\n quartos: %d", posicaoQuarto);
 
     return 0;
 }
