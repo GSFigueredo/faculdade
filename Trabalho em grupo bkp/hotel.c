@@ -7,7 +7,7 @@
 typedef struct quartos{
     char numeroQuarto[200];
     char status[200];
-    char listaHospedes[200][10];
+    char listaHospedes[200][300];
     int quantHospedesQuarto;
 } quartos;
 
@@ -103,10 +103,8 @@ void reescreverLista(quartos quarto[], int quantidadeQuartos) {
 
 void inserirHospede(quartos quarto[], int quartoVazio){
     int quantHospedesQuarto = 0;
-    long posicaoI = 0, posicaoF = 0;
     char linhaTxt[300];
     int esc = 1;
-    int semQuart;
 
     FILE *arquivo = fopen("hospedes.txt", "r+");
 
@@ -117,7 +115,6 @@ void inserirHospede(quartos quarto[], int quartoVazio){
 
     while (fgets(linhaTxt, sizeof(linhaTxt), arquivo) != NULL){
         if (strstr(linhaTxt, quarto[quartoVazio].numeroQuarto) != NULL){
-            posicaoI = ftell(arquivo) - strlen(linhaTxt);
             limparCaractere();
 
             do{
@@ -138,12 +135,68 @@ void inserirHospede(quartos quarto[], int quartoVazio){
                     limparCaractere();
                 }
             } while (esc != 1);
-
         }
 
         strcpy(quarto[quartoVazio].status, "reservado");
     }
     fclose(arquivo);
+}
+
+void buscarHospede(quartos quarto[], int *posicaoQuarto){
+    char nomeProcurado[100];
+    char linhaArquivo[300];
+    int encontradoNome = 0;
+
+    printf("Digite o nome do Hospede:");
+    scanf("%s", nomeProcurado);
+
+    for(int i = 0; i < *posicaoQuarto; i++){
+        for (int j = 0; j < quarto[i].quantHospedesQuarto; j++)
+        {
+            if (strcmp(quarto[i].listaHospedes[j], nomeProcurado) == 0){
+                printf("O hospede foi encontrado no quarto %s.", quarto[i].numeroQuarto);
+                
+                encontradoNome = 1;
+        }
+        }
+        
+    }
+    if(encontradoNome == 0){
+            printf("Esse nome não foi encontrado no nosso sistema.");
+            return;
+    }
+
+    reescreverLista(quarto, *posicaoQuarto);
+
+}
+
+void editarHospede(quartos quarto[], int *posicaoQuarto){
+    char nomeEditar[100];
+    char linhaArquivo[300];
+    int encontradoEditar = 0;
+
+    printf("Digite o nome do Hospede: ");
+    scanf("%s", nomeEditar);
+
+    for(int i = 0; i < *posicaoQuarto; i++){
+        for (int j = 0; j < quarto[i].quantHospedesQuarto; j++)
+        {
+            if (strcmp(quarto[i].listaHospedes[j], nomeEditar) == 0){
+                printf("O hospede foi encontrado. Digite o nome pelo qual você deseja substituir: ");
+                scanf("%s", quarto[i].listaHospedes[j]);
+
+                encontradoEditar = 1;
+        }
+        }
+        
+    }
+    if(encontradoEditar == 0){
+            printf("Esse nome não foi encontrado no nosso sistema.");
+            return;
+    }
+
+    reescreverLista(quarto, *posicaoQuarto);
+
 }
 
 void liberarQuarto(quartos quarto[], int *posicaoQuarto) {
@@ -167,24 +220,6 @@ void liberarQuarto(quartos quarto[], int *posicaoQuarto) {
         printf("Quarto não encontrado.\n");
         return;
     }
-
-   /* FILE *arquivo = fopen("hospedes.txt", "w");
-
-    if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    for (int i = 0; i < *posicaoQuarto; i++) {
-        fprintf(arquivo, "%s\n", quarto[i].numeroQuarto);
-        fprintf(arquivo, "%s\n", quarto[i].status);
-        for (int j = 0; j < quarto[i].quantHospedesQuarto; j++) {
-            fprintf(arquivo, "%s\n", quarto[i].listaHospedes[j]);
-        }
-        fprintf(arquivo, "%s\n", "==========");
-    }
-
-    fclose(arquivo); */
 
     reescreverLista(quarto, *posicaoQuarto);
 }
@@ -282,11 +317,11 @@ int main(){
             break;
 
         case 3:
-            // buscar hóspede
+            buscarHospede(quarto, &posicaoQuarto);
             break;
 
         case 4:
-            // editar hóspede
+            editarHospede(quarto, &posicaoQuarto);
             break;
 
         case 5:
