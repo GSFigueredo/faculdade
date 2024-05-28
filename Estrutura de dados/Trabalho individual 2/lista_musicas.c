@@ -113,10 +113,35 @@ void inserirMusica(musicas listaMusicas[], int *posicaoMusica) {
     (*posicaoMusica)++;
 }
 
+void removerMusica(musicas listaMusicas[], int *posicaoMusica, char nomeMusica[100]) {
+    int indice = -1;
+
+    for(int c = 0; c < *posicaoMusica; c++) {
+        if(strcmp(nomeMusica, listaMusicas[c].nomeMusica) == 0) {
+            indice = c;
+            break;
+        }
+    }
+
+    if (indice != -1) {
+        for (int i = indice; i < *posicaoMusica - 1; i++) {
+            listaMusicas[i] = listaMusicas[i + 1];
+        }
+        (*posicaoMusica)--;
+
+        reescreverLista(listaMusicas, *posicaoMusica);
+        
+        printf("Musica removida com sucesso.\n");
+    } else {
+        printf("Musica não encontrada.\n");
+    }
+}
+
 int main () {
     musicas listaMusicas[200];
     int posicaoMusica = 0;
     int esc;
+    char nomeMusica[100];
     int resp = 0;
 
     iniciarLista(listaMusicas, &posicaoMusica);
@@ -151,7 +176,12 @@ int main () {
             break;
 
             case 4:
-                
+                limparCaractere();
+                printf("Digite o nome da música que você deseja remover: ");
+                fgets(nomeMusica, sizeof(nomeMusica), stdin);
+                nomeMusica[strcspn(nomeMusica, "\n")] = '\0';
+
+                removerMusica(listaMusicas, &posicaoMusica, nomeMusica);
             break;
 
             case 5:
