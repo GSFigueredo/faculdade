@@ -1,0 +1,145 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <ctype.h>
+
+typedef struct musicas{
+    char nomeArtista[100];
+    char nomeMusica[100];
+    struct musicas *anteriorMusica;
+    struct musicas *proximaMusica;
+} musicas;
+
+void iniciarLista(musicas listaMusicas[], int *posicaoMusica) {
+    FILE *arquivo = fopen("musicas.txt", "r");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.");
+        return;
+    }
+
+    char linhaTxt[200];
+    while (fgets(linhaTxt, sizeof(linhaTxt), arquivo)) {
+        char *separador = strtok(linhaTxt, ";");
+        if (separador != NULL) {
+            strcpy(listaMusicas[*posicaoMusica].nomeArtista, separador);
+            separador = strtok(NULL, "\n");
+            if (separador != NULL) {
+                strcpy(listaMusicas[*posicaoMusica].nomeMusica, separador);
+                (*posicaoMusica)++;
+            }
+        }
+    }
+
+    fclose(arquivo);
+}
+
+
+void limparString(char *str) {
+    char *end;
+
+    while (isspace((unsigned char)*str)) {
+        str++;
+    }
+    if (*str == 0) { 
+        return;
+    }
+
+    end = str + strlen(str) - 1;
+    while (end > str && isspace((unsigned char)*end)) {
+        end--;
+    }
+    *(end + 1) = '\0';
+}
+
+void reescreverLista(musicas listaMusicas[], int quantidadeMusicas) {
+
+    FILE *arquivo = fopen("musicas.txt", "w+");
+
+    if(arquivo == NULL) {
+        printf("Erro ao abrir o arquivo.");
+        exit(1);
+    }
+
+    fseek(arquivo, 0, SEEK_SET);
+
+    for(int cont = 0; cont < quantidadeMusicas; cont++) {
+
+        limparString(listaMusicas[cont].nomeArtista);
+        limparString(listaMusicas[cont].nomeMusica);
+
+        fprintf(arquivo, "%s", listaMusicas[cont].nomeArtista);
+        fprintf(arquivo, "%s", "-");
+        fprintf(arquivo, "%s\n", listaMusicas[cont].nomeMusica);
+    } 
+
+    fclose(arquivo);
+} 
+
+int main () {
+    musicas listaMusicas[200];
+    int posicaoMusica = 0;
+    int esc;
+    int resp = 0;
+
+    iniciarLista(listaMusicas, &posicaoMusica);
+    reescreverLista(listaMusicas, posicaoMusica);
+
+    do{
+        printf("\n==================== MENU ====================");
+        printf("\n[1] Exibir playlist por ordem de cadastro\n");
+        printf("[2] Exibir playlist ordenada pelo nome das músicas\n");
+        printf("[3] Inserir nova música\n");
+        printf("[4] Remover música\n");
+        printf("[5] Buscar música\n");
+        printf("[6] Próxima música\n");
+        printf("[7] Música anterior\n");
+        printf("==================== **** ====================");
+        printf("\nO que deseja fazer? ");
+        scanf("%d", &esc);
+
+        switch(esc) {
+            case 1:
+
+            break;
+
+            case 2:
+                
+            break;
+
+            case 3:
+                
+            break;
+
+            case 4:
+                
+            break;
+
+            case 5:
+                
+            break;
+
+            case 6:
+                
+            break;
+
+            case 7:
+                
+            break;
+
+            default:
+                printf("Obrigado por utilizar nosso programa.");
+            break;
+        }
+
+        printf("\nDeseja realizar mais uma interação? SIM [0] / NÃO [1] ");
+        scanf("%d", &resp);
+
+    } while (resp != 1);
+
+    printf("\nnome artista: %s", listaMusicas[0].nomeArtista);
+    printf("\nnome música: %s", listaMusicas[0].nomeMusica);
+
+    return 0;
+}
