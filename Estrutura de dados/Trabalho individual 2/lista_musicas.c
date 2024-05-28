@@ -137,6 +137,25 @@ void removerMusica(musicas listaMusicas[], int *posicaoMusica, char nomeMusica[1
     }
 }
 
+void buscarMusica(musicas listaMusicas[], int quanMusicas, char nomeMusica[200]) {
+
+    int encontro = 0;
+
+    for(int cont = 0; cont < quanMusicas; cont++) {
+        if(strcmp(listaMusicas[cont].nomeMusica, nomeMusica) == 0) { 
+            printf("\nMusica encontrada... ");
+            printf("\nArtista: %s", listaMusicas[cont].nomeArtista);
+            printf("\nMúsica: %s", listaMusicas[cont].nomeMusica);
+
+            encontro = 1;
+        }
+    }
+
+    if(encontro == 0) {
+        printf("\nNenhuma música encontrada.");
+    }
+}
+
 int main () {
     musicas listaMusicas[200];
     int posicaoMusica = 0;
@@ -185,7 +204,13 @@ int main () {
             break;
 
             case 5:
-                
+                limparCaractere();
+                printf("Digite o nome da música: ");
+                fgets(nomeMusica, sizeof(nomeMusica), stdin);
+                nomeMusica[strcspn(nomeMusica, "\n")] = '\0';
+
+                buscarMusica(listaMusicas, posicaoMusica, nomeMusica);
+                break;
             break;
 
             case 6:
