@@ -12,6 +12,11 @@ typedef struct musicas{
     struct musicas *proximaMusica;
 } musicas;
 
+void limparCaractere () {
+    int limp; 
+    while ((limp = getchar()) != '\n' && limp != EOF);
+}
+
 void iniciarLista(musicas listaMusicas[], int *posicaoMusica) {
     FILE *arquivo = fopen("musicas.txt", "r");
 
@@ -74,7 +79,7 @@ void reescreverLista(musicas listaMusicas[], int quantidadeMusicas) {
         limparString(listaMusicas[cont].nomeArtista);
         limparString(listaMusicas[cont].nomeMusica);
 
-        if((listaMusicas[cont-1].idMusica == NULL) || (listaMusicas[cont-1].idMusica < 0)) {
+        if((cont == 0)) {
             listaMusicas[cont].anteriorMusica = &listaMusicas[quantidadeMusicas-1]; 
             primeiraMusica = cont;
         } else { 
@@ -95,8 +100,17 @@ void reescreverLista(musicas listaMusicas[], int quantidadeMusicas) {
     fclose(arquivo);
 } 
 
-void inserirMusica(musicas listaMusicas[], int quantidadeMusicas) {
+void inserirMusica(musicas listaMusicas[], int *posicaoMusica) {
 
+    printf("\nDigite o nome do artista: ");
+    fgets(listaMusicas[*posicaoMusica].nomeArtista, sizeof(listaMusicas[*posicaoMusica].nomeArtista), stdin);
+    listaMusicas[*posicaoMusica].nomeArtista[strcspn(listaMusicas[*posicaoMusica].nomeArtista, "\n")] = '\0';
+
+    printf("\nDigite o nome da música: ");
+    fgets(listaMusicas[*posicaoMusica].nomeMusica, sizeof(listaMusicas[*posicaoMusica].nomeMusica), stdin);
+    listaMusicas[*posicaoMusica].nomeMusica[strcspn(listaMusicas[*posicaoMusica].nomeMusica, "\n")] = '\0';
+
+    (*posicaoMusica)++;
 }
 
 int main () {
@@ -131,7 +145,9 @@ int main () {
             break;
 
             case 3:
-                //inserirMusica();
+                limparCaractere();
+                inserirMusica(listaMusicas, &posicaoMusica);
+                reescreverLista(listaMusicas, posicaoMusica);
             break;
 
             case 4:
@@ -160,13 +176,13 @@ int main () {
 
     } while (resp != 1);
 
-    printf("\nnome artista: %s", listaMusicas[0].nomeArtista);
-    printf("\nnome música: %s", listaMusicas[0].nomeMusica);
-    printf("\n endereço anterior: %p", listaMusicas[0].anteriorMusica);
-    printf("\n endereço proxima: %p", listaMusicas[0].proximaMusica);
+    printf("\nnome artista: %s", listaMusicas[4].nomeArtista);
+    printf("\nnome música: %s", listaMusicas[4].nomeMusica);
+    printf("\n endereço anterior: %p", listaMusicas[4].anteriorMusica);
+    printf("\n endereço proxima: %p", listaMusicas[4].proximaMusica);
+    printf("\nendereco anterior: %p", &listaMusicas[3]);
+    printf("\n endereco proximo: %p", &listaMusicas[5]);
     printf("\n contador final: %d", posicaoMusica);
-
-    printf("\n\n endereco ultimo: %p", &listaMusicas[9]);
 
     return 0;
 }
