@@ -100,6 +100,12 @@ void reescreverLista(musicas listaMusicas[], int quantidadeMusicas) {
     fclose(arquivo);
 } 
 
+void exibirPlaylistCadastro (musicas listaMusicas[], int quantidadeMusicas) {
+    for(int cont = 0; cont < quantidadeMusicas; cont++) {
+            printf("\n%d. %s, %s",cont+1, listaMusicas[cont].nomeArtista, listaMusicas[cont].nomeMusica);
+        }
+    }
+
 void inserirMusica(musicas listaMusicas[], int *posicaoMusica) {
 
     printf("\nDigite o nome do artista: ");
@@ -167,6 +173,7 @@ int main () {
     reescreverLista(listaMusicas, posicaoMusica);
 
     do{
+
         printf("\n==================== MENU ====================");
         printf("\n[1] Exibir playlist por ordem de cadastro\n");
         printf("[2] Exibir playlist ordenada pelo nome das músicas\n");
@@ -181,7 +188,7 @@ int main () {
 
         switch(esc) {
             case 1:
-
+                exibirPlaylistCadastro(listaMusicas, posicaoMusica);
             break;
 
             case 2:
