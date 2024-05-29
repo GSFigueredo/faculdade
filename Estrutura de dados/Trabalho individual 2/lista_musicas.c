@@ -188,6 +188,10 @@ void exibirPlaylistOrdenadaMusica(musicas listaMusicas[], int quantidadeMusicas)
     }
 }
 
+musicaAtual(musicas listaMusicas[]){ 
+
+}
+
 int main () {
     musicas listaMusicas[500];
     int posicaoMusica = 0;
@@ -211,6 +215,8 @@ int main () {
         printf("==================== **** ====================");
         printf("\nO que deseja fazer? ");
         scanf("%d", &esc);
+
+        musicaAtual(listaMusicas);
 
         switch(esc) {
             case 1:

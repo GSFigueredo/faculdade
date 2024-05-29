@@ -1,6 +1,5 @@
 Kendrick Lamar;Momma
 Frank Ocean;Godspeed
-Radiohead;Bloom
 Eddie Vedder;Hard Sun
 Max Richter;On the Nature of Daylight
 Thrice;Anthology
@@ -11,3 +10,4 @@ Joni Mitchell;The Last Time I Saw Richard
 fabio;gorda
 caio;viado
 auto la;auto quem
+jorge;bruneca soneca
