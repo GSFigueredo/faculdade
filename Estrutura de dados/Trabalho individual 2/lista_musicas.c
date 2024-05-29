@@ -162,8 +162,34 @@ void buscarMusica(musicas listaMusicas[], int quanMusicas, char nomeMusica[200])
     }
 }
 
+int compararMusicas(const void *a, const void *b) {
+    musicas *musicaA = (musicas *)a;
+    musicas *musicaB = (musicas *)b;
+    return strcasecmp(musicaA->nomeMusica, musicaB->nomeMusica);
+}
+
+void exibirPlaylistOrdenadaMusica(musicas listaMusicas[], int quantidadeMusicas) {
+
+    musicas listaMusicasCopia[500];
+
+    for(int cont = 0; cont < quantidadeMusicas; cont++) {
+        strcpy( listaMusicasCopia[cont].nomeArtista, listaMusicas[cont].nomeArtista);
+        strcpy( listaMusicasCopia[cont].nomeMusica, listaMusicas[cont].nomeMusica);
+        listaMusicasCopia[cont].idMusica = listaMusicas[cont].idMusica;
+        listaMusicasCopia[cont].anteriorMusica = listaMusicas[cont].anteriorMusica;
+        listaMusicasCopia[cont].proximaMusica = listaMusicas[cont].proximaMusica;
+    }
+
+    qsort(listaMusicasCopia, quantidadeMusicas, sizeof(musicas), compararMusicas);
+
+    printf("\nPlaylist ordenada pelo nome das músicas:");
+    for (int cont = 0; cont < quantidadeMusicas; cont++) {
+        printf("\n%d. %s, %s", cont+1, listaMusicasCopia[cont].nomeArtista, listaMusicasCopia[cont].nomeMusica);
+    }
+}
+
 int main () {
-    musicas listaMusicas[200];
+    musicas listaMusicas[500];
     int posicaoMusica = 0;
     int esc;
     char nomeMusica[100];
@@ -173,8 +199,8 @@ int main () {
     reescreverLista(listaMusicas, posicaoMusica);
 
     do{
-
-        printf("\n==================== MENU ====================");
+        system("clear");
+        printf("==================== MENU ====================");
         printf("\n[1] Exibir playlist por ordem de cadastro\n");
         printf("[2] Exibir playlist ordenada pelo nome das músicas\n");
         printf("[3] Inserir nova música\n");
@@ -192,7 +218,7 @@ int main () {
             break;
 
             case 2:
-                
+                exibirPlaylistOrdenadaMusica(listaMusicas, posicaoMusica);
             break;
 
             case 3:
