@@ -63,7 +63,6 @@ void limparString(char *str) {
 
 void reescreverLista(musicas listaMusicas[], int quantidadeMusicas) {
     int primeiraMusica = 0;
-    int ultimaMusica = 0;
 
     FILE *arquivo = fopen("musicas.txt", "w+");
 
@@ -86,7 +85,7 @@ void reescreverLista(musicas listaMusicas[], int quantidadeMusicas) {
             listaMusicas[cont].anteriorMusica = &listaMusicas[cont-1];
         }
 
-        if(listaMusicas[cont+1].idMusica == NULL) {
+        if(cont == quantidadeMusicas-1) {
             listaMusicas[cont].proximaMusica = &listaMusicas[primeiraMusica]; 
         } else { 
             listaMusicas[cont].proximaMusica = &listaMusicas[cont+1];
@@ -115,6 +114,8 @@ void inserirMusica(musicas listaMusicas[], int *posicaoMusica) {
     printf("\nDigite o nome da música: ");
     fgets(listaMusicas[*posicaoMusica].nomeMusica, sizeof(listaMusicas[*posicaoMusica].nomeMusica), stdin);
     listaMusicas[*posicaoMusica].nomeMusica[strcspn(listaMusicas[*posicaoMusica].nomeMusica, "\n")] = '\0';
+
+    printf("\nMúsica inserida com sucesso.");
 
     (*posicaoMusica)++;
 }
@@ -188,8 +189,14 @@ void exibirPlaylistOrdenadaMusica(musicas listaMusicas[], int quantidadeMusicas)
     }
 }
 
-musicaAtual(musicas listaMusicas[]){ 
+void proximaMusica(musicas **musicaAtual) {
+    *musicaAtual = (*musicaAtual)->proximaMusica;
+     printf("\nPróxima música: %s - %s\n", (*musicaAtual)->nomeArtista, (*musicaAtual)->nomeMusica);
+}
 
+void musicaAnterior(musicas **musicaAtual) {
+    *musicaAtual = (*musicaAtual)->anteriorMusica;
+     printf("\nMúsica anterior: %s - %s\n", (*musicaAtual)->nomeArtista, (*musicaAtual)->nomeMusica);
 }
 
 int main () {
@@ -198,13 +205,24 @@ int main () {
     int esc;
     char nomeMusica[100];
     int resp = 0;
+    musicas *musicaAtual = NULL;
 
     iniciarLista(listaMusicas, &posicaoMusica);
     reescreverLista(listaMusicas, posicaoMusica);
 
+    if (posicaoMusica > 0) {
+        musicaAtual = &listaMusicas[0];
+    }
+
     do{
         system("clear");
-        printf("==================== MENU ====================");
+
+        if (musicaAtual != NULL) {
+            printf("\n==================== MÚSICA ATUAL ====================");
+            printf("\n%s de %s", musicaAtual->nomeMusica, musicaAtual->nomeArtista);
+        }
+
+        printf("\n==================== MENU ====================");
         printf("\n[1] Exibir playlist por ordem de cadastro\n");
         printf("[2] Exibir playlist ordenada pelo nome das músicas\n");
         printf("[3] Inserir nova música\n");
@@ -212,11 +230,10 @@ int main () {
         printf("[5] Buscar música\n");
         printf("[6] Próxima música\n");
         printf("[7] Música anterior\n");
+        printf("[8] Encerrar\n");
         printf("==================== **** ====================");
         printf("\nO que deseja fazer? ");
         scanf("%d", &esc);
-
-        musicaAtual(listaMusicas);
 
         switch(esc) {
             case 1:
@@ -238,7 +255,6 @@ int main () {
                 printf("Digite o nome da música que você deseja remover: ");
                 fgets(nomeMusica, sizeof(nomeMusica), stdin);
                 nomeMusica[strcspn(nomeMusica, "\n")] = '\0';
-
                 removerMusica(listaMusicas, &posicaoMusica, nomeMusica);
             break;
 
@@ -247,36 +263,33 @@ int main () {
                 printf("Digite o nome da música: ");
                 fgets(nomeMusica, sizeof(nomeMusica), stdin);
                 nomeMusica[strcspn(nomeMusica, "\n")] = '\0';
-
                 buscarMusica(listaMusicas, posicaoMusica, nomeMusica);
-                break;
             break;
 
             case 6:
-                
+                proximaMusica(&musicaAtual);
             break;
 
             case 7:
-                
+                musicaAnterior(&musicaAtual);
+            break;
+
+            case 8:
+                printf("Obrigado por utilizar nosso programa.");
             break;
 
             default:
-                printf("Obrigado por utilizar nosso programa.");
+                printf("Comando não reconhecido...");
             break;
         }
 
-        printf("\nDeseja realizar mais uma interação? SIM [0] / NÃO [1] ");
-        scanf("%d", &resp);
-
+        if(esc != 8) {
+            printf("\n\nDeseja realizar mais uma interação? SIM [0] / NÃO [1] ");
+            scanf("%d", &resp);
+        } else {
+            resp = 1;
+        }
     } while (resp != 1);
-
-    printf("\nnome artista: %s", listaMusicas[4].nomeArtista);
-    printf("\nnome música: %s", listaMusicas[4].nomeMusica);
-    printf("\n endereço anterior: %p", listaMusicas[4].anteriorMusica);
-    printf("\n endereço proxima: %p", listaMusicas[4].proximaMusica);
-    printf("\nendereco anterior: %p", &listaMusicas[3]);
-    printf("\n endereco proximo: %p", &listaMusicas[5]);
-    printf("\n contador final: %d", posicaoMusica);
 
     return 0;
 }
