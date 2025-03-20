@@ -1,0 +1,5 @@
+# 1. Criação e manipulação
+minha_lista = [10, "Python", True, 3.14, [1, 2, 3]]
+print("Primeiro elemento:", minha_lista[0])
+print("Último elemento:", minha_lista[-1])
+print("Três primeiros elementos:", minha_lista[:3])

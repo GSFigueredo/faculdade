@@ -1,0 +1,7 @@
+# 8. Desafio - Cadastro de usuários
+usuarios = {"12345678900": "Alice", "98765432100": "Bruno", "55566677700": "Carlos"}
+cpf = input("Digite um CPF para consulta: ")
+if cpf in usuarios:
+    print("Nome cadastrado:", usuarios[cpf])
+else:
+    print("CPF não cadastrado.")
