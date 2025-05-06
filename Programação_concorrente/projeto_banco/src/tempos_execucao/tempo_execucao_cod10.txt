@@ -1,0 +1,3 @@
+Tempo total: 1022 ms
+CPFs válidos: 44161
+CPFs inválidos: 4377650
