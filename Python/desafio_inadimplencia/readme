@@ -1,0 +1,36 @@
+# Projeto: Previsão de Inadimplência de Clientes
+
+## 🔍 Objetivo
+Desenvolver um modelo preditivo para identificar clientes com maior probabilidade de inadimplência em faturas de cartão de crédito, utilizando a base UCI Credit Card.
+
+## 📊 Principais Insights do EDA
+
+- Cerca de 22% dos clientes estavam inadimplentes.
+- A idade e o limite de crédito possuem outliers, tratados com limiar de 99%.
+- Correlações relevantes entre pagamentos anteriores e inadimplência foram observadas.
+
+## 🤖 Modelos Utilizados
+
+- **Regressão Logística**
+- **Floresta Aleatória (com GridSearch para ajuste de hiperparâmetros)**
+
+### Métricas Obtidas
+
+| Modelo                | Acurácia | Precisão | Recall | F1-Score | AUC   |
+|-----------------------|----------|----------|--------|----------|-------|
+| Regressão Logística   | ~0.81    | ~0.55    | ~0.22  | ~0.31    | ~0.74 |
+| Floresta Aleatória    | ~0.82    | ~0.59    | ~0.26  | ~0.36    | ~0.76 |
+
+> Obs: Os valores exatos dependem da execução do código e dos hiperparâmetros escolhidos.
+
+## 💡 Conclusões e Recomendações
+
+- Modelos supervisionados conseguem capturar parte do padrão de inadimplência, mas o recall ainda pode ser melhorado.
+- A Floresta Aleatória teve melhor desempenho geral.
+- Recomenda-se testar técnicas de oversampling (SMOTE) e outras features derivadas de comportamento de pagamento.
+
+## 🚀 Como Executar
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
