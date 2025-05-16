@@ -65,7 +65,7 @@ for col in ['LIMIT_BAL', 'AGE']:
 
 # Matriz de correlação entre as variáveis
 st.subheader("🔗 Correlação entre Variáveis")
-fig_corr, ax_corr = plt.subplots(figsize=(12, 8))
+fig_corr, ax_corr = plt.subplots(figsize=(6, 4))
 sns.heatmap(dados.corr(numeric_only=True), cmap='coolwarm', ax=ax_corr)
 st.pyplot(fig_corr)
 
