@@ -18,7 +18,7 @@ st.title("📊 Previsão de Inadimplência em Cartões de Crédito")
 # Carregamento com cache (evita carregar várias vezes desnecessariamente)
 @st.cache_data
 def carregar_dados():
-    dados = pd.read_csv('UCI_Credit_Card.csv')
+    dados = pd.read_csv('Python/desafio_inadimplencia/UCI_Credit_Card.csv') 
     dados.rename(columns={'default.payment.next.month': 'inadimplente'}, inplace=True)
     return dados
 
